@@ -1,0 +1,7 @@
+failed_db_connect="Verbindung zum MariaDB-Server konnte nicht hergestellt werden. Überprüfen Sie Ihr Kennwort und versuchen Sie es erneut."
+failed_downloading_image="Bilder werden heruntergeladen, aktivieren Sie dieses Paket später."
+failed_illegal_dir_name="Der Name des Ordners enthält ungültige Zeichen."
+failed_remove_db="Datenbank {0} konnte nicht entfernt werden."
+failed_remove_db_user="Datenbankbenutzer {0} konnte nicht entfernt werden."
+failed_remove_dir="Ordner {0} konnte nicht entfernt werden."
+warning_all_data_lost="Warnung: Alle Daten werden durch die Deinstallation gelöscht."

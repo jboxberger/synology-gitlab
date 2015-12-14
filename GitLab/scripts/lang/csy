@@ -1,0 +1,7 @@
+failed_db_connect="Připojení k serveru MariaDB se nezdařilo. Zkontrolujte heslo a zkuste to znovu."
+failed_downloading_image="Probíhá stahování obrázků, aktivujte tento balíček později."
+failed_illegal_dir_name="Název složky obsahuje neplatné znaky."
+failed_remove_db="Odebrání databáze {0} se nezdařilo."
+failed_remove_db_user="Odebrání uživatele {0} databáze se nezdařilo."
+failed_remove_dir="Odebrání složky {0} se nezdařilo."
+warning_all_data_lost="Upozornění: po odinstalování budou všechna data odstraněna."

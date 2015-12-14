@@ -1,0 +1,7 @@
+failed_db_connect="MariaDB サーバーへの接続に失敗しました。パスワードを確認してもう一度行ってください。"
+failed_downloading_image="イメージをダウンロードしています。後からこのパッケージを有効にしてください。"
+failed_illegal_dir_name="フォルダ名に不正な文字が含まれています。"
+failed_remove_db="{0} データベースの削除に失敗しました。"
+failed_remove_db_user="{0} データベースユーザーの削除に失敗しました。"
+failed_remove_dir="{0} フォルダの削除に失敗しました。"
+warning_all_data_lost="警告： アンインストール後に、全てのデータが消去されます。"

@@ -1,0 +1,1 @@
+[{"items":[{"desc":"警告： 卸载后，所有的数据都将被删除。"}],"step_title":"卸载 GitLab"},{"items":[{"desc":"输入 MariaDB 密码。","subitems":[{"desc":"根密码","key":"pkgwizard_mysql_password"}],"type":"password"}],"step_title":"卸载 GitLab"}]

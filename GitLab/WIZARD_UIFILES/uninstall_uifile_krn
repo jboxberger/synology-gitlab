@@ -1,0 +1,1 @@
+[{"items":[{"desc":"경고: 설치 제거 후 모든 데이터가 삭제됩니다."}],"step_title":"GitLab 제거"},{"items":[{"desc":"MariaDB 패스워드를 입력합니다.","subitems":[{"desc":"Root 패스워드","key":"pkgwizard_mysql_password"}],"type":"password"}],"step_title":"GitLab 제거"}]

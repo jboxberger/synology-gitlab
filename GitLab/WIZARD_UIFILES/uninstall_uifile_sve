@@ -1,0 +1,1 @@
+[{"items":[{"desc":"Varning, allt data kommer att vara raderat efter avinstallation."}],"step_title":"Avinstallera GitLab"},{"items":[{"desc":"Ange ditt lösenord för MariaDB.","subitems":[{"desc":"Root-lösenord","key":"pkgwizard_mysql_password"}],"type":"password"}],"step_title":"Avinstallera GitLab"}]

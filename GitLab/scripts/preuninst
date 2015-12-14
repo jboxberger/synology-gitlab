@@ -1,0 +1,15 @@
+#!/bin/sh
+# Copyright (c) 2000-2015 Synology Inc. All rights reserved.
+
+[ "$SYNOPKG_PKG_STATUS" = UPGRADE ] && exit 0
+
+. "$(dirname $0)"/common
+
+# check mariadb password
+MARIADB_PASS="${pkgwizard_mysql_password:+-p$pkgwizard_mysql_password}"
+if [ "$(mysqladmin ping "$MARIADB_PASS")" != "mysqld is alive" ]; then
+	log "$failed_db_connect"
+	exit 1
+fi
+
+exit 0

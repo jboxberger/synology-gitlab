@@ -1,0 +1,1 @@
+[{"items":[{"desc":"Uyarı: kaldırma sonrasında tüm veriler silinecek."}],"step_title":"GitLab öğesini kaldır"},{"items":[{"desc":"MariaDB şifrenizi girin.","subitems":[{"desc":"Root şifresi","key":"pkgwizard_mysql_password"}],"type":"password"}],"step_title":"GitLab öğesini kaldır"}]

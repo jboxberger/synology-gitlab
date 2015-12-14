@@ -1,0 +1,7 @@
+failed_db_connect="MariaDB 서버에 연결 실패. 패스워드를 확인한 다음 다시 시도하십시오."
+failed_downloading_image="이미지 다운로드 중. 이 패키지를 나중에 활성화하십시오."
+failed_illegal_dir_name="폴더 이름에 잘못된 문자가 포함되어 있습니다."
+failed_remove_db="데이터베이스 {0} 제거 실패."
+failed_remove_db_user="데이터베이스 사용자 {0} 제거 실패."
+failed_remove_dir="폴더 {0} 제거 실패."
+warning_all_data_lost="경고: 설치 제거 후 모든 데이터가 삭제됩니다."

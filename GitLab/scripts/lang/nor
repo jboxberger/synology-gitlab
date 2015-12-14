@@ -1,0 +1,7 @@
+failed_db_connect="Kan ikke koble til MariaDB-serveren. Kontroller passordet og prøv på nytt."
+failed_downloading_image="Laster ned bilder, aktiver denne pakken senere."
+failed_illegal_dir_name="Mappenavnet inneholder ugyldige tegn."
+failed_remove_db="Kan ikke fjerne databasen {0}."
+failed_remove_db_user="Kan ikke fjerne databasebrukeren {0}."
+failed_remove_dir="Kan ikke fjerne mappen {0}."
+warning_all_data_lost="Advarsel: alle data vil bli slettet etter avinstalleringen."

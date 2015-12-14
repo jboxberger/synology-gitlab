@@ -1,0 +1,7 @@
+failed_db_connect="Failed to connect to the MariaDB server. Please check your password and try again."
+failed_downloading_image="Downloading images, please enable this package later."
+failed_illegal_dir_name="The folder name contains illegal characters."
+failed_remove_db="Failed to remove the database {0}."
+failed_remove_db_user="Failed to remove the database user {0}."
+failed_remove_dir="Failed to remove the folder {0}."
+warning_all_data_lost="Warning: all data will be deleted after uninstallation."

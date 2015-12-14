@@ -1,0 +1,106 @@
+{
+	"cpu_priority": 0,
+	"enable_publish_all_ports": false,
+	"env_variables": [{
+		"key": "GITLAB_HOST",
+		"value": "__HOSTNAME__"
+	},
+	{
+		"key": "GITLAB_PORT",
+		"value": "__HTTP_PORT__"
+	},
+	{
+		"key": "GITLAB_SSH_PORT",
+		"value": "__SSH_PORT__"
+	},
+	{
+		"key": "UNICORN_TIMEOUT",
+		"value": "__UNICORN_TIMEOUT__"
+	},	
+	{
+		"key": "GITLAB_EMAIL",
+		"value": "__ADMIN_EMAIL__"
+	},
+	{
+		"key": "GITLAB_SECRETS_DB_KEY_BASE",
+		"value": "__CI_PARAPHRASE__"
+	},
+	{
+		"key": "DB_TYPE",
+		"value": "mysql"
+	},
+	{
+		"key": "DB_HOST",
+		"value": "__DB_HOST__"
+	},
+	{
+		"key": "DB_NAME",
+		"value": "__DB_NAME__"
+	},
+	{
+		"key": "DB_USER",
+		"value": "__DB_USER__"
+	},
+	{
+		"key": "DB_PASS",
+		"value": "__DB_PASS__"
+	},
+	{
+		"key": "SMTP_ENABLED",
+		"value": "__SMTP_ENABLE__"
+	},
+	{
+		"key": "SMTP_DOMAIN",
+		"value": "__SMTP_ADDR__"
+	},
+	{
+		"key": "SMTP_HOST",
+		"value": "__SMTP_ADDR__"
+	},
+	{
+		"key": "SMTP_PORT",
+		"value": "__SMTP_PORT__"
+	},
+	{
+		"key": "SMTP_USER",
+		"value": "__SMTP_USER__"
+	},
+	{
+		"key": "SMTP_PASS",
+		"value": "__SMTP_PASS__"
+	},
+	{
+		"key": "SMTP_OPENSSL_VERIFY_MODE",
+		"value": "__SMTP_VERIFY__"
+	}],
+	"image": "quay.io/sameersbn/gitlab:8.2.3",
+	"is_package": true,
+	"links": [{
+		"alias": "redisio",
+		"link_container": "synology_gitlab_redis"
+	}],
+	"memory_limit": 0,
+	"name": "synology_gitlab",
+	"port_bindings": [{
+		"container_port": 80,
+		"host_port": __HTTP_PORT__,
+		"type": "tcp"
+	},
+	{
+		"container_port": 22,
+		"host_port": __SSH_PORT__,
+		"type": "tcp"
+	}],
+	"privileged": false,
+	"shortcut": {
+		"enable_shortcut": false,
+		"enable_status_page": false,
+		"enable_web_page": false,
+		"web_page_url": ""
+	},
+	"volume_bindings": [{
+		"host_volume_file": "/docker/__SHARE__",
+		"mount_point": "/home/git/data",
+		"type": "rw"
+	}]
+}

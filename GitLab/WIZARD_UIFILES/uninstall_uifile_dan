@@ -1,0 +1,1 @@
+[{"items":[{"desc":"Advarsel: Alle data bliver slettet efter fjernelse."}],"step_title":"Afinstaller GitLab"},{"items":[{"desc":"Indtast din MariaDB-adgangskode.","subitems":[{"desc":"Rodadgangskode","key":"pkgwizard_mysql_password"}],"type":"password"}],"step_title":"Afinstaller GitLab"}]

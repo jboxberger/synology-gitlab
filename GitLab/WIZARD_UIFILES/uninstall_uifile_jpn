@@ -1,0 +1,1 @@
+[{"items":[{"desc":"警告： アンインストール後に、全てのデータが消去されます。"}],"step_title":"GitLab をアンインストール"},{"items":[{"desc":"MariaDB のパスワードを入力します。","subitems":[{"desc":"Root パスワード","key":"pkgwizard_mysql_password"}],"type":"password"}],"step_title":"GitLab をアンインストール"}]

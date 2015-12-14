@@ -1,0 +1,7 @@
+failed_db_connect="无法连接到 MariaDB 服务器。请检查密码然后再试一次。"
+failed_downloading_image="正在下载图像，请在稍后启用此套件。"
+failed_illegal_dir_name="文件夹名称含有非法字符。"
+failed_remove_db="删除数据库 {0} 失败。"
+failed_remove_db_user="删除数据库用户 {0} 失败。"
+failed_remove_dir="删除文件夹 {0} 失败。"
+warning_all_data_lost="警告： 卸载后，所有的数据都将被删除。"

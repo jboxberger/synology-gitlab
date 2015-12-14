@@ -1,0 +1,7 @@
+failed_db_connect="Nem sikerült csatlakozni a MariaDB kiszolgálóhoz. Ellenőrizze a jelszavát, és próbálja újra."
+failed_downloading_image="Képek letöltése... Kérjük, engedélyezze ezt a csomagot később."
+failed_illegal_dir_name="A mappa neve érvénytelen karaktereket tartalmaz."
+failed_remove_db="A(z) {0} adatbázis eltávolítása sikertelen."
+failed_remove_db_user="A(z) {0} adatbázis-felhasználó eltávolítása sikertelen."
+failed_remove_dir="A(z) {0} mappa eltávolítása sikertelen."
+warning_all_data_lost="Figyelem: az eltávolítás után minden adat törlődni fog."

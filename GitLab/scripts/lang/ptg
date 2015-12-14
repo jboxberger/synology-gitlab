@@ -1,0 +1,7 @@
+failed_db_connect="Falha ao ligar ao servidor MariaDB. Verifique a sua palavra-passe e tente novamente."
+failed_downloading_image="A transferir imagens, active mais tarde este pacote."
+failed_illegal_dir_name="O nome da pasta contém caracteres ilegais."
+failed_remove_db="Não foi possível remover a base de dados {0}."
+failed_remove_db_user="Não foi possível remover o utilizador da base de dados {0}."
+failed_remove_dir="Não foi possível remover a pasta {0}."
+warning_all_data_lost="Aviso: todos os dados serão eliminados apés a desinstalação."

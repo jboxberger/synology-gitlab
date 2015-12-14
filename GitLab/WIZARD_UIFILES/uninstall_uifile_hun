@@ -1,0 +1,1 @@
+[{"items":[{"desc":"Figyelem: az eltávolítás után minden adat törlődni fog."}],"step_title":"Eltávolítás GitLab"},{"items":[{"desc":"Adja meg a MariaDB-jelszót.","subitems":[{"desc":"Root jelszó","key":"pkgwizard_mysql_password"}],"type":"password"}],"step_title":"Eltávolítás GitLab"}]

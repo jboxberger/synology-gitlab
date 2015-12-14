@@ -1,0 +1,7 @@
+failed_db_connect="Kunne ikke oprette forbindelse to the MariaDB-server. Kontroller din adgangskode, og prøv igen."
+failed_downloading_image="Downloader billeder. Aktiver denne pakke senere."
+failed_illegal_dir_name="Mappenavnet indeholder ulovlige tegn."
+failed_remove_db="Kunne ikke fjerne databasen {0}."
+failed_remove_db_user="Kunne ikke fjerne databasebrugeren {0}."
+failed_remove_dir="Kunne ikke fjerne mappen {0}."
+warning_all_data_lost="Advarsel: Alle data bliver slettet efter fjernelse."

@@ -1,0 +1,7 @@
+failed_db_connect="Impossibile collegarsi al server MariaDB. Controllare la password e riprovare."
+failed_downloading_image="Download immagini in corso. Abilitare il pacchetto in seguito."
+failed_illegal_dir_name="Il nome della cartella contiene caratteri non validi."
+failed_remove_db="Impossibile rimuovere il database {0}."
+failed_remove_db_user="Impossibile rimuovere l'utente del database {0}."
+failed_remove_dir="Impossibile rimuovere la cartella {0}."
+warning_all_data_lost="Avvertenza: dopo la disinstallazione tutti i dati verranno eliminati."

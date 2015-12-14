@@ -1,0 +1,7 @@
+failed_db_connect="Error de conexión con el servidor MariaDB. Compruebe su contraseña y vuelva a intentarlo."
+failed_downloading_image="Descargando imágenes; habilite este paquete más tarde."
+failed_illegal_dir_name="El nombre de carpeta contiene caracteres no válidos."
+failed_remove_db="No se pudo eliminar la base de datos {0}."
+failed_remove_db_user="No se pudo eliminar el usuario de la base de datos {0}."
+failed_remove_dir="No se pudo eliminar la carpeta {0}."
+warning_all_data_lost="Advertencia: tras la desinstalación se eliminarán todos los datos."

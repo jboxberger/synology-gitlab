@@ -1,0 +1,7 @@
+failed_db_connect="Kunde inte att ansluta till MariaDB-servern. Kontrollera ditt lösenord och försök igen."
+failed_downloading_image="Laddar ner bilder, vänligen aktivera det här filpaketet senare."
+failed_illegal_dir_name="Namnet på mappen innehåller otillåtna tecken."
+failed_remove_db="Kunde inte ta bort databasen {0}."
+failed_remove_db_user="Kunde inte ta bort databasanvändaren {0}."
+failed_remove_dir="Kunde inte ta bort mappen {0}."
+warning_all_data_lost="Varning, allt data kommer att vara raderat efter avinstallation."

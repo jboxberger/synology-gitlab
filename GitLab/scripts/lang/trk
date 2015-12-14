@@ -1,0 +1,7 @@
+failed_db_connect="MariaDB sunucusuna bağlanılamadı. Lütfen parolanızı kontrol edin ve yeniden deneyin."
+failed_downloading_image="Görüntüler indiriliyor, lütfen bu paketi daha sonra etkinleştirin."
+failed_illegal_dir_name="Klasör adında geçersiz karakterler var."
+failed_remove_db="Veritabanı {0} kaldırılamadı."
+failed_remove_db_user="Veritabanı kullanıcısı {0} kaldırılamadı."
+failed_remove_dir="Klasör {0} kaldırılamadı."
+warning_all_data_lost="Uyarı: kaldırma sonrasında tüm veriler silinecek."

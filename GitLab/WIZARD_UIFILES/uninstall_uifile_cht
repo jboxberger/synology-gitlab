@@ -1,0 +1,1 @@
+[{"items":[{"desc":"注意：解除安裝後，所有資料將會被刪除。"}],"step_title":"解除安裝 GitLab"},{"items":[{"desc":"輸入 MariaDB 密碼。","subitems":[{"desc":"Root 密碼","key":"pkgwizard_mysql_password"}],"type":"password"}],"step_title":"解除安裝 GitLab"}]

@@ -1,0 +1,38 @@
+#!/bin/sh
+# Copyright (c) 2000-2015 Synology Inc. All rights reserved.
+
+[ "$SYNOPKG_PKG_STATUS" = UPGRADE ] && exit 0
+
+. "$(dirname $0)"/common
+. "$ETC_PATH"/config
+
+/usr/syno/bin/synowebapi --exec api=SYNO.Docker.Container version=1 method=delete name=synology_gitlab_redis force=true preserve_profile=false
+/usr/syno/bin/synowebapi --exec api=SYNO.Docker.Container version=1 method=delete name=synology_gitlab force=true preserve_profile=false
+
+docker rmi quay.io/sameersbn/redis:latest
+docker rmi quay.io/sameersbn/gitlab:8.2.3
+
+if [ "$SYNOPKG_PKG_STATUS" != UPGRADE ]; then
+	DB_USER="$PKG_SHORT"
+	MARIADB_PASS="${pkgwizard_mysql_password:+-p$pkgwizard_mysql_password}"
+	SQL_DROP_USER="DROP USER '$DB_USER'@'%';"
+	SQL_DROP_DATABASE="DROP DATABASE \`$DB_NAME\`;"
+
+	if ! echo $SQL_DROP_USER | mysql -uroot "$MARIADB_PASS"; then
+		logger -p 0 "$PKG_NAME: failed to remove the database user $DB_USER"
+		log "$failed_remove_db_user" "$DB_USER"
+	fi
+	if ! echo $SQL_DROP_DATABASE | mysql -uroot "$MARIADB_PASS"; then
+		logger -p 0 "$PKG_NAME: failed to remove the database $DB_NAME"
+		log "$failed_remove_db" "$DB_NAME"
+	fi
+
+	if ! rm -Rf "$SHARE_PATH/$SHARE"; then
+		logger -p 0 "$PKG_NAME: failed to remove the folder $SHARE"
+		log "$failed_remove_dir" "$SHARE"
+	fi
+
+	rm "$ETC_PATH"/config
+fi
+
+exit 0

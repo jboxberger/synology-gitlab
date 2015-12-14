@@ -10,3 +10,6 @@ Improvements
 - Gitlab Update to 8.2.3
 - Increased UNICORN_TIMEOUT to 180s
 
+The following docker images will be downloaded during the installation. This will take some time so please be ptaient.
+sameersbn/gitlab:8.2.3 (249.7MB)
+sameersbn/redis:latest (66MB)

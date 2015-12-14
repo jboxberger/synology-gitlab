@@ -1,0 +1,1 @@
+[{"items":[{"desc":"Waarschuwing: als u de installatie ongedaan maakt, worden alle gegevens verwijderd."}],"step_title":"Installatie GitLab ongedaan maken"},{"items":[{"desc":"Voer uw MariaDB-wachtwoord in.","subitems":[{"desc":"Rootwachtwoord","key":"pkgwizard_mysql_password"}],"type":"password"}],"step_title":"Installatie GitLab ongedaan maken"}]

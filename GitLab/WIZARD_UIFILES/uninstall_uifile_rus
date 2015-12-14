@@ -1,0 +1,1 @@
+[{"items":[{"desc":"Внимание! После удаления программы будут удалены все данные."}],"step_title":"Удалить GitLab"},{"items":[{"desc":"Введите пароль MariaDB.","subitems":[{"desc":"Пароль root","key":"pkgwizard_mysql_password"}],"type":"password"}],"step_title":"Удалить GitLab"}]

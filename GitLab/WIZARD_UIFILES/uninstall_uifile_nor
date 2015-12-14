@@ -1,0 +1,1 @@
+[{"items":[{"desc":"Advarsel: alle data vil bli slettet etter avinstalleringen."}],"step_title":"Avinstaller GitLab"},{"items":[{"desc":"Angi MariaDB-passordet ditt.","subitems":[{"desc":"Root-passord","key":"pkgwizard_mysql_password"}],"type":"password"}],"step_title":"Avinstaller GitLab"}]

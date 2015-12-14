@@ -1,0 +1,1 @@
+[{"items":[{"desc":"Avvertenza: dopo la disinstallazione tutti i dati verranno eliminati."}],"step_title":"Disinstallare GitLab"},{"items":[{"desc":"Inserire la password MariaDB.","subitems":[{"desc":"Password principale","key":"pkgwizard_mysql_password"}],"type":"password"}],"step_title":"Disinstallare GitLab"}]

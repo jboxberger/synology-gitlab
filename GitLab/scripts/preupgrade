@@ -1,0 +1,50 @@
+#!/bin/sh
+# Copyright (c) 2000-2015 Synology Inc. All rights reserved.
+
+. "$(dirname $0)"/common
+
+. "$ETC_PATH"/config
+
+if [ "$pkgwizard_mysql_password" != PreservePassword49L8tnAL ]; then
+# check mariadb password
+	MARIADB_PASS="${pkgwizard_mysql_password:+-p$pkgwizard_mysql_password}"
+	if [ "$(mysqladmin ping "$MARIADB_PASS")" != "mysqld is alive" ]; then
+		log "$failed_db_connect"
+		exit 1
+	fi
+fi
+
+[ "$pkgwizard_hostname" ]     && HOSTNAME="$pkgwizard_hostname"
+[ "$pkgwizard_admin_email" ]  && ADMIN_EMAIL="$pkgwizard_admin_email"
+[ "$pkgwizard_http_port" ]    && HTTP_PORT="$pkgwizard_http_port"
+[ "$pkgwizard_ssh_port" ]     && SSH_PORT="$pkgwizard_ssh_port"
+[ "$pkgwizard_smtp_enable_unchanged" != true ] && SMTP_ENABLE="$pkgwizard_smtp_enable_true"
+[ "$pkgwizard_smtp_address" ] && SMTP_ADDR="$pkgwizard_smtp_address"
+[ "$pkgwizard_smtp_port" ]    && SMTP_PORT="$pkgwizard_smtp_port"
+[ "$pkgwizard_smtp_user" ]    && SMTP_USER="$pkgwizard_smtp_user"
+[ "$pkgwizard_smtp_pass" != PreservePassword49L8tnAL ] && SMTP_PASS="$pkgwizard_smtp_pass"
+[ "$pkgwizard_smtp_verify_unchanged" != true ] && SMTP_VERIFY="$pkgwizard_smtp_verify_true"
+
+if [ -z "$CI_PARAPHRASE" ]; then
+	CI_PARAPHRASE="$(openssl rand -base64 48 | sed 's,/,_,g')"
+fi
+
+(
+	echo HTTP_PORT="\"$HTTP_PORT\""
+	echo SSH_PORT="\"$SSH_PORT\""
+	echo UNICORN_TIMEOUT="\"180\""
+	echo DB_NAME="\"$DB_NAME\""
+	echo DB_PASS="\"$DB_PASS\""
+	echo CI_PARAPHRASE="\"$CI_PARAPHRASE\""
+	echo HOSTNAME="\"$HOSTNAME\""
+	echo ADMIN_EMAIL="\"$ADMIN_EMAIL\""
+	echo SMTP_ENABLE="\"$SMTP_ENABLE\""
+	echo SMTP_ADDR="\"$SMTP_ADDR\""
+	echo SMTP_PORT="\"$SMTP_PORT\""
+	echo SMTP_USER="\"$SMTP_USER\""
+	echo SMTP_PASS="\"$SMTP_PASS\""
+	echo SMTP_VERIFY="\"$SMTP_VERIFY\""
+	echo SHARE="\"$SHARE\""
+) > "$ETC_PATH"/config
+
+exit 0

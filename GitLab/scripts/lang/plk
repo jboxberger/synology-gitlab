@@ -1,0 +1,7 @@
+failed_db_connect="Nie można nawiązać połączenia z serwerem MariaDB. Sprawdź swoje hasło i spróbuj ponownie."
+failed_downloading_image="Włącz ten pakiet później, ponieważ trwa pobieranie obrazów."
+failed_illegal_dir_name="Nazwa folderu zawiera niedozwolone znaki."
+failed_remove_db="Nie można usunąć bazy danych {0}."
+failed_remove_db_user="Nie można usunąć użytkownika bazy danych {0}."
+failed_remove_dir="Nie można usunąć folderu {0}."
+warning_all_data_lost="Ostrzeżenie: wszystkie dane zostaną usunięte po odinstalowaniu."
