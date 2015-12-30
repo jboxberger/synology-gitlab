@@ -17,7 +17,7 @@ Improvements
 - install/updated/uninstall procces rewrite
 - Feature: Uninstall and Keep Gitlab Data
 - Feature: Use individual database user and password. 
-- Feature: Install on existing gitlab database and database
+- Feature: Install on existing gitlab database and files
 - Note: On Update you may need to specify the Databse User "gitlab" once
 
 
