@@ -5,6 +5,10 @@ Packages used:
 https://hub.docker.com/r/sameersbn/gitlab/  
 https://hub.docker.com/r/sameersbn/redis/  
 
+NOTES: 
+- When cloning please be shure to turn off the git autocrlf, otherwise shell installation scripts may not work.
+You can use this command: git config --global core.autocrlf false
+
 #2015-12-31
 Improvements
 - Gitlab Update to 8.3.2 - sameersbn/gitlab:8.3.2 (254.3MB)  
@@ -15,6 +19,7 @@ Improvements
 - Feature: Use individual database user and password. 
 - Feature: Install on existing gitlab database and database
 - Note: On Update you may need to specify the Databse User "gitlab" once
+
 
 
 #2015-12-14
