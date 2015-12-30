@@ -9,20 +9,26 @@
 /usr/syno/bin/synowebapi --exec api=SYNO.Docker.Container version=1 method=delete name=synology_gitlab_redis force=true preserve_profile=false
 /usr/syno/bin/synowebapi --exec api=SYNO.Docker.Container version=1 method=delete name=synology_gitlab force=true preserve_profile=false
 
-docker rmi quay.io/sameersbn/redis:latest
-docker rmi quay.io/sameersbn/gitlab:8.2.3
+docker rmi quay.io/sameersbn/redis:$REDIS_VERSION
+docker rmi quay.io/sameersbn/gitlab:$GITLAB_VERSION
 
-if [ "$SYNOPKG_PKG_STATUS" != UPGRADE ]; then
-	DB_USER="$PKG_SHORT"
-	MARIADB_PASS="${pkgwizard_mysql_password:+-p$pkgwizard_mysql_password}"
+if [ "$pkgwizard_delete_data" = true ]; then
+	
 	SQL_DROP_USER="DROP USER '$DB_USER'@'%';"
+	SQL_DROP_USER_LOCAL="DROP USER '$DB_USER'@'localhost';"
 	SQL_DROP_DATABASE="DROP DATABASE \`$DB_NAME\`;"
 
-	if ! echo $SQL_DROP_USER | mysql -uroot "$MARIADB_PASS"; then
-		logger -p 0 "$PKG_NAME: failed to remove the database user $DB_USER"
+	if ! echo $SQL_DROP_USER | mysql -uroot -p"$pkgwizard_mysql_password"; then
+		logger -p 0 "$PKG_NAME: failed to remove user $DB_USER"
 		log "$failed_remove_db_user" "$DB_USER"
 	fi
-	if ! echo $SQL_DROP_DATABASE | mysql -uroot "$MARIADB_PASS"; then
+
+	if ! echo $SQL_DROP_USER_LOCAL | mysql -uroot -p"$pkgwizard_mysql_password"; then
+		logger -p 0 "$PKG_NAME: failed to remove local user $DB_USER"
+		log "$failed_remove_db_user" "$DB_USER"
+	fi
+	
+	if ! echo $SQL_DROP_DATABASE | mysql -uroot -p"$pkgwizard_mysql_password"; then
 		logger -p 0 "$PKG_NAME: failed to remove the database $DB_NAME"
 		log "$failed_remove_db" "$DB_NAME"
 	fi

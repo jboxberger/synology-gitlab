@@ -11,8 +11,12 @@ if [ -z "$pkgwizard_dataroot" ]; then
 fi
 
 # check mariadb password
-MARIADB_PASS="${pkgwizard_mysql_password:+-p$pkgwizard_mysql_password}"
-if [ "$(mysqladmin ping "$MARIADB_PASS")" != "mysqld is alive" ]; then
+if [ ! -z "$pkgwizard_mysql_password" ]; then
+	if [ "$(mysqladmin ping -p"$pkgwizard_mysql_password")" != "mysqld is alive" ]; then
+		log "$failed_db_connect"
+		exit 1
+	fi
+elif [ ! mysql -u$pkgwizard_db_user -p"$pkgwizard_db_password" $pkgwizard_db_name -e exit ]; then
 	log "$failed_db_connect"
 	exit 1
 fi

@@ -5,6 +5,19 @@ Packages used:
 https://hub.docker.com/r/sameersbn/gitlab/  
 https://hub.docker.com/r/sameersbn/redis/  
 
+#2015-12-31
+Improvements
+- Gitlab Update to 8.3.2 - sameersbn/gitlab:8.3.2 (254.3MB)  
+- Added English UI
+- renamed package folder spk/ to bin/
+- install/updated/uninstall procces rewrite
+- Feature: Uninstall and Keep Gitlab Data
+- Feature: Use individual database user and password. 
+- Feature: Install on existing gitlab database and database
+- Note: On Update you may need to specify the Databse User "gitlab" once
+
+
+#2015-12-14
 Improvements
 - Updated Redis to latest
 - Gitlab Update to 8.2.3

@@ -1,63 +1,67 @@
 #!/bin/sh
 # Copyright (c) 2000-2015 Synology Inc. All rights reserved.
 
+[ "$SYNOPKG_PKG_STATUS" = UPGRADE ] && exit 0
+
 . "$(dirname $0)"/common
 
-DB_HOST=$(ip address show docker0 | grep inet | awk '{print $2}' | cut -f1 -d/ | head -n 1)
-DB_USER="$PKG_SHORT"
-API=/usr/syno/bin/synowebapi
-GITLAB_PROFILE="$TARGET_PATH"/config/synology_gitlab
-REDIS_PROFILE="$TARGET_PATH"/config/synology_gitlab_redis
+HTTP_PORT="$pkgwizard_http_port"
+SSH_PORT="$pkgwizard_ssh_port"
+DB_NAME="$pkgwizard_db_name"
+DB_USER="$pkgwizard_db_user"
+DB_PASS="$pkgwizard_db_password"
+MARIADB_PASS="$pkgwizard_mysql_password"
+CI_PARAPHRASE="$(openssl rand -base64 48 | sed 's,/,_,g')"
+HOSTNAME="$pkgwizard_hostname"
+ADMIN_EMAIL="$pkgwizard_admin_email"
+SMTP_ENABLE="$pkgwizard_smtp_enable"
+SMTP_ADDR="$pkgwizard_smtp_address"
+SMTP_PORT="$pkgwizard_smtp_port"
+SMTP_USER="$pkgwizard_smtp_user"
+SMTP_PASS="$pkgwizard_smtp_pass"
+SMTP_VERIFY="$pkgwizard_smtp_verify"
+SHARE="$pkgwizard_dataroot"
 
-if [ "$SYNOPKG_PKG_STATUS" != UPGRADE ]; then
-	HTTP_PORT="$pkgwizard_http_port"
-	SSH_PORT="$pkgwizard_ssh_port"
-	UNICORN_TIMEOUT="180"
-	DB_NAME="$pkgwizard_db_name"
-	DB_PASS="$(openssl rand -base64 48 | sed 's,/,_,g')"
-	MARIADB_PASS="${pkgwizard_mysql_password:+-p$pkgwizard_mysql_password}"
-	CI_PARAPHRASE="$(openssl rand -base64 48 | sed 's,/,_,g')"
-	HOSTNAME="$pkgwizard_hostname"
-	ADMIN_EMAIL="$pkgwizard_admin_email"
-	SMTP_ENABLE="$pkgwizard_smtp_enable"
-	SMTP_ADDR="$pkgwizard_smtp_address"
-	SMTP_PORT="$pkgwizard_smtp_port"
-	SMTP_USER="$pkgwizard_smtp_user"
-	SMTP_PASS="$pkgwizard_smtp_pass"
-	SMTP_VERIFY="$pkgwizard_smtp_verify"
-	SHARE="$pkgwizard_dataroot"
-	SQL="CREATE USER '$DB_USER'@'%' IDENTIFIED BY '$DB_PASS'; CREATE DATABASE IF NOT EXISTS \`$DB_NAME\` DEFAULT CHARACTER SET \`utf8\` COLLATE \`utf8_unicode_ci\`; GRANT ALL PRIVILEGES ON \`$DB_NAME\`.* TO '$DB_USER'@'%';"
-
-	echo $SQL | mysql -uroot "$MARIADB_PASS"
-
-	(
-		echo HTTP_PORT="\"$HTTP_PORT\""
-		echo SSH_PORT="\"$SSH_PORT\""
-		echo UNICORN_TIMEOUT="\"180\""
-		echo DB_NAME="\"$DB_NAME\""
-		echo DB_PASS="\"$DB_PASS\""
-		echo CI_PARAPHRASE="\"$CI_PARAPHRASE\""
-		echo HOSTNAME="\"$HOSTNAME\""
-		echo ADMIN_EMAIL="\"$ADMIN_EMAIL\""
-		echo SMTP_ENABLE="\"$SMTP_ENABLE\""
-		echo SMTP_ADDR="\"$SMTP_ADDR\""
-		echo SMTP_PORT="\"$SMTP_PORT\""
-		echo SMTP_USER="\"$SMTP_USER\""
-		echo SMTP_PASS="\"$SMTP_PASS\""
-		echo SMTP_VERIFY="\"$SMTP_VERIFY\""
-		echo SHARE="\"$SHARE\""
-		
-	) > "$ETC_PATH"/config
-else
-	. "$ETC_PATH"/config
+if [ ! -z "$MARIADB_PASS" ]; then
+	echo "CREATE DATABASE IF NOT EXISTS \`$DB_NAME\` DEFAULT CHARACTER SET \`utf8\` COLLATE \`utf8_unicode_ci\`;"                         | mysql -uroot "-p$MARIADB_PASS"
+	echo "CREATE USER '$DB_USER'@'%' IDENTIFIED BY '$DB_PASS'; GRANT ALL PRIVILEGES ON \`$DB_NAME\`.* TO '$DB_USER'@'%';"                 | mysql -uroot "-p$MARIADB_PASS"
+	echo "CREATE USER '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS'; GRANT ALL PRIVILEGES ON \`$DB_NAME\`.* TO '$DB_USER'@'localhost';" | mysql -uroot "-p$MARIADB_PASS"		
+elif [ ! mysql -u$DB_USER -p"$DB_PASS" $DB_NAME -e exit ]; then
+	log "$failed_db_connect"
+	exit 1
 fi
+
+(
+	echo HTTP_PORT="\"$HTTP_PORT\""
+	echo SSH_PORT="\"$SSH_PORT\""
+	echo UNICORN_TIMEOUT="\"$UNICORN_TIMEOUT\""
+	echo DB_NAME="\"$DB_NAME\""
+	echo DB_USER="\"$DB_USER\""
+	echo DB_PASS="\"$DB_PASS\""
+	echo CI_PARAPHRASE="\"$CI_PARAPHRASE\""
+	echo HOSTNAME="\"$HOSTNAME\""
+	echo ADMIN_EMAIL="\"$ADMIN_EMAIL\""
+	echo SMTP_ENABLE="\"$SMTP_ENABLE\""
+	echo SMTP_ADDR="\"$SMTP_ADDR\""
+	echo SMTP_PORT="\"$SMTP_PORT\""
+	echo SMTP_USER="\"$SMTP_USER\""
+	echo SMTP_PASS="\"$SMTP_PASS\""
+	echo SMTP_VERIFY="\"$SMTP_VERIFY\""
+	echo SHARE="\"$SHARE\""
+) > "$ETC_PATH"/config
+
 sed -i \
 	-e "s/__HTTP_PORT__/$HTTP_PORT/g" \
-	"$TARGET_PATH"/ui/config \
-	"$GITLAB_PROFILE"
+	"$TARGET_PATH"/ui/config 
+	
 sed -i \
+	-e "s/__REDIS_VERSION__/$REDIS_VERSION/g" \
+	"$REDIS_PROFILE"
+	
+sed -i \
+	-e "s/__HTTP_PORT__/$HTTP_PORT/g" \
 	-e "s/__SSH_PORT__/$SSH_PORT/g" \
-	-e "s/__UNICORN_TIMEOUT__/180/g" \
+	-e "s/__UNICORN_TIMEOUT__/$UNICORN_TIMEOUT/g" \
 	-e "s/__DB_HOST__/$DB_HOST/g" \
 	-e "s/__DB_NAME__/$DB_NAME/g" \
 	-e "s/__DB_USER__/$DB_USER/g" \
@@ -71,11 +75,12 @@ sed -i \
 	-e "s/__SMTP_USER__/$SMTP_USER/g" \
 	-e "s/__SMTP_PASS__/$SMTP_PASS/g" \
 	-e "s/__SMTP_VERIFY__/$([ "$SMTP_VERIFY" = true ] && echo peer || echo none)/g" \
+	-e "s/__GITLAB_VERSION__/$GITLAB_VERSION/g" \
 	-e "s/__SHARE__/$SHARE/g" \
 	"$GITLAB_PROFILE"
-
-docker pull quay.io/sameersbn/gitlab:8.2.3
-docker pull quay.io/sameersbn/redis:latest	
+	
+docker pull quay.io/sameersbn/gitlab:$GITLAB_VERSION
+docker pull quay.io/sameersbn/redis:$REDIS_VERSION	
 	
 $API --exec api=SYNO.Docker.Container version=1 method=create is_run_instantly=false profile="$(cat "$REDIS_PROFILE")"
 $API --exec api=SYNO.Docker.Container version=1 method=create is_run_instantly=false profile="$(cat "$GITLAB_PROFILE")"

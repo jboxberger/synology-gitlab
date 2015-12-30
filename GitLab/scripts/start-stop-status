@@ -3,8 +3,6 @@
 
 . "$(dirname $0)"/common
 UI_PATH="/usr/syno/synoman/webman/3rdparty/$PKG_NAME"
-GITLAB_NAME=synology_gitlab
-REDIS_NAME=synology_gitlab_redis
 DOCKER_BIN=/usr/local/bin/docker
 WEBAPI_BIN=/usr/syno/bin/synowebapi
 

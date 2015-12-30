@@ -6,10 +6,11 @@
 . "$(dirname $0)"/common
 
 # check mariadb password
-MARIADB_PASS="${pkgwizard_mysql_password:+-p$pkgwizard_mysql_password}"
-if [ "$(mysqladmin ping "$MARIADB_PASS")" != "mysqld is alive" ]; then
-	log "$failed_db_connect"
-	exit 1
-fi
+if [ "$pkgwizard_delete_data" = true ]; then
+	if [ "$(mysqladmin ping -p"$pkgwizard_mysql_password")" != "mysqld is alive" ]; then
+		log "$failed_db_connect"
+		exit 1
+	fi
+fi 
 
 exit 0

@@ -1,1 +1,25 @@
-[{"items":[{"desc":"Warning: all data will be deleted after uninstallation."}],"step_title":"Uninstall GitLab"},{"items":[{"desc":"Enter your MariaDB password.","subitems":[{"desc":"Root password","key":"pkgwizard_mysql_password"}],"type":"password"}],"step_title":"Uninstall GitLab"}]
+[{
+    "step_title": "Uninstall GitLab",
+	"items": [{
+		"desc": "You can keep all your Gitlab data and install Gitlab later again.",
+		"subitems": [{
+			"defaultValue": true,
+			"desc": "Keep Gitlab Database and Files.",
+			"key": "pkgwizard_keep_data"
+		},
+		{
+			"defaultValue": false,
+			"desc": "Delete all data. (MariaDB Root password required)",
+			"key": "pkgwizard_delete_data"
+		}],
+		"type": "singleselect"
+	},
+	{
+		"desc": "Enter your MariaDB root password.",
+		"subitems": [{
+			"desc": "Root password",
+			"key": "pkgwizard_mysql_password"
+		}],
+		"type": "password"
+	}]
+}]

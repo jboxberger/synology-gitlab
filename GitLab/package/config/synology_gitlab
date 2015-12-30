@@ -73,7 +73,7 @@
 		"key": "SMTP_OPENSSL_VERIFY_MODE",
 		"value": "__SMTP_VERIFY__"
 	}],
-	"image": "quay.io/sameersbn/gitlab:8.2.3",
+	"image": "quay.io/sameersbn/gitlab:__GITLAB_VERSION__",
 	"is_package": true,
 	"links": [{
 		"alias": "redisio",
