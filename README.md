@@ -14,8 +14,8 @@ Improvements
 - Gitlab Update to 8.4.0 - sameersbn/gitlab:8.4.0 (267.7MB)  
 - Fixed Upgrade issue: Failed to remove old Images.
 
-If you have troble removing old images you can try this. Fist stop all useless images. The login with ssh as root 
-on yout synology and enter this command
+If you have trouble removing old images you can try this. Fist stop all useless images. Then login with ssh as root 
+on your synology and enter this command
 
 docker rmi $(docker images -q --filter dangling=true)
 
