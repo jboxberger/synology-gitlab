@@ -9,8 +9,9 @@
 /usr/syno/bin/synowebapi --exec api=SYNO.Docker.Container version=1 method=delete name=synology_gitlab_redis force=true preserve_profile=false
 /usr/syno/bin/synowebapi --exec api=SYNO.Docker.Container version=1 method=delete name=synology_gitlab force=true preserve_profile=false
 
-docker rmi quay.io/sameersbn/redis:$REDIS_VERSION
-docker rmi quay.io/sameersbn/gitlab:$GITLAB_VERSION
+#remove all old gitlab & redis docker images
+docker rmi -f $(docker images | grep "^quay.io/sameersbn/gitlab" | awk '{print $3}')
+docker rmi -f $(docker images | grep "^quay.io/sameersbn/redis" | awk '{print $3}')
 
 if [ "$pkgwizard_delete_data" = true ]; then
 	

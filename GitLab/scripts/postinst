@@ -79,8 +79,8 @@ sed -i \
 	-e "s/__SHARE__/$SHARE/g" \
 	"$GITLAB_PROFILE"
 	
-docker pull quay.io/sameersbn/gitlab:$GITLAB_VERSION
 docker pull quay.io/sameersbn/redis:$REDIS_VERSION	
+docker pull quay.io/sameersbn/gitlab:$GITLAB_VERSION
 	
 $API --exec api=SYNO.Docker.Container version=1 method=create is_run_instantly=false profile="$(cat "$REDIS_PROFILE")"
 $API --exec api=SYNO.Docker.Container version=1 method=create is_run_instantly=false profile="$(cat "$GITLAB_PROFILE")"

@@ -52,6 +52,9 @@ rm -Rf $copy
 #docker rmi quay.io/sameersbn/redis:latest
 #docker rmi quay.io/sameersbn/gitlab:8.2.3
 
+# Remove dangling images
+#docker rmi $(docker images -q --filter dangling=true)
+
 #compress extracted docker Images
 # cd directory/
 # XZ_OPT=-9 tar -Jcvf redis-latest.tar.xz *

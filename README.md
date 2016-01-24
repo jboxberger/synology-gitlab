@@ -9,6 +9,20 @@ NOTES:
 - When cloning please be shure to turn off the git autocrlf, otherwise shell installation scripts may not work.
 You can use this command: git config --global core.autocrlf false
 
+#2015-01-24
+Improvements
+- Gitlab Update to 8.4.0 - sameersbn/gitlab:8.4.0 (267.7MB)  
+- Fixed Upgrade issue: Failed to remove old Images.
+
+If you have troble removing old images you can try this. Fist stop all useless images. The login with ssh as root 
+on yout synology and enter this command
+
+docker rmi $(docker images -q --filter dangling=true)
+
+If the old images are gone you can reinstall the synology package and everything should work fine. If it doesn't
+help, you can uninstall the synology package (keeping all your data) and reinstall the package again (please don't
+forget to save your database credentials first). 
+
 #2015-12-31
 Improvements
 - Gitlab Update to 8.3.2 - sameersbn/gitlab:8.3.2 (254.3MB)  
