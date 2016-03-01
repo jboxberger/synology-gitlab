@@ -9,6 +9,9 @@ NOTES:
 - When cloning please be shure to turn off the git autocrlf, otherwise shell installation scripts may not work.
 You can use this command: git config --global core.autocrlf false
 
+#2015-03-01
+- Gitlab Update to 8.5.1 - sameersbn/gitlab:8.5.1 (268.2MB)  
+
 #2015-02-04
 Improvements
 - Gitlab Update to 8.4.3 - sameersbn/gitlab:8.4.3 (267.7MB)  
