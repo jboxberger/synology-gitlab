@@ -32,10 +32,7 @@ tar -czf $copy/package.tgz *
 rm -Rf $copy/package
 cd $copy
 
-if [ ! -d "$projectdir/bin" ]; then
-  mkdir "$projectdir/bin"
-fi
-tar -cvf $projectdir/bin/$project.spk *
+tar -cvf $projectdir/$project.spk *
 rm -Rf $copy
 
 #docker pull quay.io/sameersbn/gitlab:8.2.3
