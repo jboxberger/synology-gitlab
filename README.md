@@ -5,7 +5,10 @@ Packages used:
 https://hub.docker.com/r/sameersbn/gitlab/  
 https://hub.docker.com/r/sameersbn/redis/  
 
-NOTES: 
+# DSM 6.0-7321 
+- DSM 6.0-7321 breaks the docker container. You can fix it by reinstalling the synology-gitlab package (without changing any settings and )
+
+# NOTE: 
 - When cloning please be shure to turn off the git autocrlf, otherwise shell installation scripts may not work.
 You can use this command: git config --global core.autocrlf false
 
