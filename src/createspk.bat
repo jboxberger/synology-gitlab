@@ -1,1 +1,1 @@
-createspk.sh GitLab GitLab-8.6.1
+createspk.sh GitLab GitLab-8.7.0

@@ -12,21 +12,24 @@ https://hub.docker.com/r/sameersbn/redis/
 - When cloning please be shure to turn off the git autocrlf, otherwise shell installation scripts may not work.
 You can use this command: git config --global core.autocrlf false
 
-#2015-03-29
+#2016-05-01
+- Gitlab Update to 8.7.0 - sameersbn/gitlab:8.7.0 (274.2MB)  
+
+#2016-03-29
 - Gitlab Update to 8.6.1 - sameersbn/gitlab:8.6.1 (270.0MB)  
 
-#2015-03-19
+#2016-03-19
 - Gitlab Update to 8.5.8 - sameersbn/gitlab:8.5.8 (268.6MB)  
 
-#2015-03-01
+#2016-03-01
 - Gitlab Update to 8.5.1 - sameersbn/gitlab:8.5.1 (268.2MB)  
 
-#2015-02-04
+#2016-02-04
 Improvements
 - Gitlab Update to 8.4.3 - sameersbn/gitlab:8.4.3 (267.7MB)  
 NOTE: When you have troubles updating, update again an re-enter the gitlab database credentials.
 
-#2015-01-24
+#2016-01-24
 Improvements
 - Gitlab Update to 8.4.0 - sameersbn/gitlab:8.4.0 (267.7MB)  
 - Fixed Upgrade issue: Failed to remove old Images.
