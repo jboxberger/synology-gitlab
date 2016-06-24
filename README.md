@@ -13,6 +13,9 @@ https://hub.docker.com/r/sameersbn/redis/
 You can use this command: git config --global core.autocrlf false
 
 #2016-06-03
+- Gitlab Update to 8.9.0 - sameersbn/gitlab:8.9.0 (284.6MB)  
+
+#2016-06-03
 - Gitlab Update to 8.8.3 - sameersbn/gitlab:8.8.3 (290.5MB)  
 
 #2016-05-16
