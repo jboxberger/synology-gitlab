@@ -12,7 +12,7 @@ sameersbn/redis:latest (about 66MB)  https://hub.docker.com/r/sameersbn/redis/
 **Please be patient during the Update process**. Updates may take several minutes because the 
 new docker Image needs to be downloaded from the docker-hub. Depending on your internet connection 
 the download of approximate 350MB can take some time. The first docker container boot up - after 
-installatioin/update - takes some minutes because GitLab needs to migrate tha Database first, you 
+installation/update - takes some minutes because GitLab needs to migrate tha Database first, you 
 can see the status in the GitLab container log (DSM docker backend). The Update is complete when 
 the CPU begins to idle.    
 
