@@ -26,6 +26,14 @@
 		"value": "__CI_PARAPHRASE__"
 	},
 	{
+		"key": "GITLAB_SECRETS_SECRET_KEY_BASE",
+		"value": "__GITLAB_SECRETS_SECRET_KEY_BASE__"
+	},
+	{
+		"key": "GITLAB_SECRETS_OTP_KEY_BASE",
+		"value": "__GITLAB_SECRETS_OTP_KEY_BASE__"
+	},
+	{
 		"key": "DB_TYPE",
 		"value": "mysql"
 	},

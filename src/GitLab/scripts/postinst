@@ -12,6 +12,7 @@ DB_USER="$pkgwizard_db_user"
 DB_PASS="$pkgwizard_db_password"
 MARIADB_PASS="$pkgwizard_mysql_password"
 CI_PARAPHRASE="$(openssl rand -base64 48 | sed 's,/,_,g')"
+GITLAB_SECRETS_SECRET_KEY_BASE="$(openssl rand -base64 48 | sed 's,/,_,g')"
 HOSTNAME="$pkgwizard_hostname"
 ADMIN_EMAIL="$pkgwizard_admin_email"
 SMTP_ENABLE="$pkgwizard_smtp_enable"
@@ -39,6 +40,8 @@ fi
 	echo DB_USER="\"$DB_USER\""
 	echo DB_PASS="\"$DB_PASS\""
 	echo CI_PARAPHRASE="\"$CI_PARAPHRASE\""
+	echo GITLAB_SECRETS_SECRET_KEY_BASE="\"$GITLAB_SECRETS_SECRET_KEY_BASE\""
+	echo GITLAB_SECRETS_OTP_KEY_BASE="\"$GITLAB_SECRETS_OTP_KEY_BASE\""
 	echo HOSTNAME="\"$HOSTNAME\""
 	echo ADMIN_EMAIL="\"$ADMIN_EMAIL\""
 	echo SMTP_ENABLE="\"$SMTP_ENABLE\""
@@ -67,6 +70,8 @@ sed -i \
 	-e "s/__DB_USER__/$DB_USER/g" \
 	-e "s/__DB_PASS__/$DB_PASS/g" \
 	-e "s/__CI_PARAPHRASE__/$CI_PARAPHRASE/g" \
+	-e "s/__GITLAB_SECRETS_SECRET_KEY_BASE__/$GITLAB_SECRETS_SECRET_KEY_BASE/g" \
+	-e "s#__GITLAB_SECRETS_OTP_KEY_BASE__#$GITLAB_SECRETS_OTP_KEY_BASE#g" \
 	-e "s/__HOSTNAME__/$HOSTNAME/g" \
 	-e "s/__ADMIN_EMAIL__/$ADMIN_EMAIL/g" \
 	-e "s/__SMTP_ENABLE__/$SMTP_ENABLE/g" \

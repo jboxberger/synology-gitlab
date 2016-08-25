@@ -12,6 +12,9 @@ https://hub.docker.com/r/sameersbn/redis/
 - When cloning please be shure to turn off the git autocrlf, otherwise shell installation scripts may not work.
 You can use this command: git config --global core.autocrlf false
 
+#2016-08-25
+- Gitlab Update to 8.11.0 - sameersbn/gitlab:8.11.0 (302.3MB)
+
 #2016-07-24
 - Gitlab Update to 8.10.0 - sameersbn/gitlab:8.10.0 (293.0MB)  
 
