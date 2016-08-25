@@ -1,2 +1,9 @@
-# Set the default behavior, in case people don't have core.autocrlf set.
+# Default Unix Line Endings for the whole Project
 * text eol=lf
+
+# Windows Files
+*.bat text eol=crlf
+
+# Binary Files
+*.spk binary
+*.png binary
