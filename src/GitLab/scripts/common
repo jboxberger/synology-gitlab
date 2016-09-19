@@ -14,7 +14,7 @@ API=/usr/syno/bin/synowebapi
 
 # Gitlab Version can be taken from here 
 # https://quay.io/repository/sameersbn/gitlab?tab=tags
-GITLAB_VERSION=8.11.2
+GITLAB_VERSION=8.11.6
 GITLAB_NAME=synology_gitlab
 GITLAB_PROFILE="$TARGET_PATH"/config/"$GITLAB_NAME"
 
