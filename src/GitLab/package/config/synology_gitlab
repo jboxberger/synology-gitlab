@@ -82,7 +82,7 @@
 		"value": "__SMTP_VERIFY__"
 	}],
 	"image": "quay.io/sameersbn/gitlab:__GITLAB_VERSION__",
-	"is_package": true,
+	"is_package" : false,
 	"links": [{
 		"alias": "redisio",
 		"link_container": "synology_gitlab_redis"
