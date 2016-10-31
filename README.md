@@ -59,7 +59,7 @@ the CPU begins to idle.
   
   You can login to your database and insert the user manually with this query:
   ```sql
-    INSERT into gitlab.users (id, email, encrypted_password, name, admin, authentication_token, username, state, notification_email, confirmation_token, confirmed_at, password_expires_at, created_at )VALUES (
+    INSERT into gitlab.users (id, email, encrypted_password, name, admin, authentication_token, username, state, notification_email, confirmation_token, confirmed_at, password_expires_at, created_at ) VALUES (
         1,																	
         'root@gitlab.com',													
         '$2a$10$tZ0VSv4BpRut2sXQVjJskO/VAX539vqeBEQJ1yc0nc9H0xsGMc/42',		
