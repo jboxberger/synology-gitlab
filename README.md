@@ -48,3 +48,34 @@ the CPU begins to idle.
   If the old images are gone you can reinstall the synology package and everything should work fine. If it doesn't
   help, you can uninstall the synology package (keeping all your data) and reinstall the package again (please don't
   forget to save your database credentials first). 
+- On a new Gitlab (DB) Install, for unknown reasons the gitlab install routine stops with an error and fails to add 
+  the default 'root' user. 
+  ```
+  /home/git/gitlab/lib/tasks/gitlab/setup.rake:17:in `setup_db'
+  /home/git/gitlab/lib/tasks/gitlab/setup.rake:4:in `block (2 levels) in &lt;top (required)&gt;'
+  Tasks: TOP =&gt; db:schema:load
+  (See full trace by running task with --trace)
+  ```
+  
+  You can login to your database and insert the user manually with this query:
+  ```sql
+    INSERT into gitlab.users (id, email, encrypted_password, name, admin, authentication_token, username, state, notification_email, confirmation_token, confirmed_at, password_expires_at, created_at )VALUES (
+        1,																	
+        'root@gitlab.com',													
+        '$2a$10$tZ0VSv4BpRut2sXQVjJskO/VAX539vqeBEQJ1yc0nc9H0xsGMc/42',		
+        'root',																
+        1,																	
+        'hZ2R2V791aKYNu34DEGJ',												
+        'root',																 
+        'active',															
+        'root@gitlab.com', 													
+        'Wt1matyrmTsdvc7LJk2E',                                         	
+        '2015-12-29 15:55:16',                                          	
+        '2015-01-01 01:00:00',                                              
+        '2015-01-01 01:00:00'												
+    );
+  ```
+  
+  Now you can login with the default credentials 'root' / '5iveL!fe'. I highly recommend to add a new user and delete this "dummy" user
+  because of the public authentication_token.
+  
