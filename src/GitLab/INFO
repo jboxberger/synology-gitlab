@@ -1,5 +1,5 @@
 package="Docker-GitLab"
-version="8.16.3"
+version="8.16.6"
 maintainer="Juri Boxberger"
 arch="x86 avoton bromolow cedarview braswell kvmx64"
 firmware="5.2-5545"

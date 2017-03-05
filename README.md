@@ -16,6 +16,7 @@ installation/update - takes some minutes because GitLab needs to migrate tha Dat
 can see the status in the GitLab container log (DSM docker backend). The Update is complete when 
 the CPU begins to idle.    
 
+- **2016-03-05** - sameersbn/gitlab:8.16.6 (305.1MB)
 - **2016-02-05** - sameersbn/gitlab:8.16.3 (303.3MB)
 - **2016-01-25** - sameersbn/gitlab:8.15.4 (314.8MB)
 - **2016-01-08** - sameersbn/gitlab:8.15.2 (298.3MB)
@@ -43,6 +44,7 @@ the CPU begins to idle.
 - **2015-12-14** - sameersbn/gitlab:8.2.3 (250.9MB)
 
 #Known Problems
+- DSM 6.1 takes the old Gitlab icon from the original package instead zhe updated Icon from from my package.
 - DSM 6.0-7321 breaks the docker container. You can fix it by reinstalling the synology-gitlab package (without changing any settings)
 - When you have troubles updating, update again an re-enter the gitlab database credentials.
 - If you have trouble removing old images you can try this. Fist stop all useless images. Then login with ssh as root 
@@ -84,3 +86,27 @@ the CPU begins to idle.
   Now you can login with the default credentials 'root' / '5iveL!fe'. I highly recommend to add a new user and delete this "dummy" user
   because of the public authentication_token.
   
+# HowTo's
+
+## Backup all my Gitlab data
+First go to the Packet Manager in your DSM and stop the Gitlab Package.
+
+**1) Save your GitLab Credentials**
+- go to Docker App in you DSM
+- Select Container
+- choose your synology_gitlab container
+- click settings button (above) and export your settings
+  alternatively you can click on Details and backup your environment variables by hand  
+- the MOST important variables are GITLAB_SECRETS_DB_KEY_BASE, GITLAB_SECRETS_SECRET_KEY_BASE, Database Credentials to get the DB Dump  
+
+**2) Save Database**
+- login via ssh 
+- complete the following command from your settings you saved before in the first step
+  ```bash
+    mysqldump -h localhost -u <DB_USER> -p"<DB_PASS>" <DB_NAME> > /volume1/anyfolder/gitlab_database_dump.sql
+  ```
+
+**3) Save Data**
+backup folder /volume1/docker/gitlab
+
+Now you should be save and be able to restore your whole installation even if something went really wrong.
