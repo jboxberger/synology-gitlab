@@ -9,8 +9,8 @@ sameersbn/gitlab:8.x.x (about 300MB) https://hub.docker.com/r/sameersbn/gitlab/
 sameersbn/redis:latest (about 66MB)  https://hub.docker.com/r/sameersbn/redis/  
 
 #Supported Architectures
-Since i can't test all architectures i had to make a choice which i can cover. If your architecture is not in 
-this list so contact me an we can give it a try.
+Since i can't test all architectures i had to make a choice which i can cover or which i expect to work. If your architecture is not in 
+this list so please feel free to contact me and we can give it a try.
  
 For now this package should work on this architectures: **x86 avoton bromolow cedarview braswell kvmx64**
 
