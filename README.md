@@ -44,7 +44,7 @@ the CPU begins to idle.
 - **2015-12-14** - sameersbn/gitlab:8.2.3 (250.9MB)
 
 #Known Problems
-- DSM 6.1 takes the old Gitlab icon from the original package instead zhe updated Icon from from my package.
+- DSM 6.1 takes the old Gitlab icon from the original package instead the updated icon from from my package.
 - DSM 6.0-7321 breaks the docker container. You can fix it by reinstalling the synology-gitlab package (without changing any settings)
 - When you have troubles updating, update again an re-enter the gitlab database credentials.
 - If you have trouble removing old images you can try this. Fist stop all useless images. Then login with ssh as root 
@@ -95,18 +95,17 @@ First go to the Packet Manager in your DSM and stop the Gitlab Package.
 - go to Docker App in you DSM
 - Select Container
 - choose your synology_gitlab container
-- click settings button (above) and export your settings
-  alternatively you can click on Details and backup your environment variables by hand  
-- the MOST important variables are GITLAB_SECRETS_DB_KEY_BASE, GITLAB_SECRETS_SECRET_KEY_BASE, Database Credentials to get the DB Dump  
+- click settings button (above) and export your settings, alternatively you can click on Details and backup your environment variables by hand  
+- the **most important** variables are GITLAB_SECRETS_DB_KEY_BASE, GITLAB_SECRETS_SECRET_KEY_BASE, Database Credentials to get the DB Dump  
 
 **2) Save Database**
 - login via ssh 
 - complete the following command from your settings you saved before in the first step
-  ```bash
+  ```markdown
     mysqldump -h localhost -u <DB_USER> -p"<DB_PASS>" <DB_NAME> > /volume1/anyfolder/gitlab_database_dump.sql
   ```
 
 **3) Save Data**
-backup folder /volume1/docker/gitlab
+- backup folder /volume1/docker/gitlab
 
 Now you should be save and be able to restore your whole installation even if something went really wrong.
