@@ -101,6 +101,7 @@ First go to the Packet Manager in your DSM and stop the Gitlab Package.
 **2) Save Database**
 - login via ssh 
 - complete the following command from your settings you saved before in the first step
+
   ```markdown
     mysqldump -h localhost -u <DB_USER> -p"<DB_PASS>" <DB_NAME> > /volume1/anyfolder/gitlab_database_dump.sql
   ```
