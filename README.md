@@ -1,14 +1,14 @@
-#synology-gitlab
+## synology-gitlab
 Updated an improved Original Synology Package from 
 https://www.synology.com/de-de/dsm/app_packages/Docker-GitLab
 
-#Packages used:  
+## Packages used:  
 The following docker images will be downloaded during the installation. This will take some time so please be ptaient.
 
 sameersbn/gitlab:8.x.x (about 300MB) https://hub.docker.com/r/sameersbn/gitlab/   
 sameersbn/redis:latest (about 66MB)  https://hub.docker.com/r/sameersbn/redis/  
 
-#Supported Architectures
+## Supported Architectures
 Since i can't test all architectures i had to make a choice which i can cover or which i expect to work. If your architecture is not in 
 this list so please feel free to contact me and we can give it a try.
  
@@ -16,7 +16,7 @@ For now this package should work on this architectures: **x86 avoton bromolow ce
 
 You can check the architecture of your device here: https://github.com/SynoCommunity/spksrc/wiki/Architecture-per-Synology-model
 
-#Updates
+# Updates
 **Please be patient during the Update process**. Updates may take several minutes because the 
 new docker Image needs to be downloaded from the docker-hub. Depending on your internet connection 
 the download of approximate 350MB can take some time. The first docker container boot up - after 
@@ -24,10 +24,11 @@ installation/update - takes some minutes because GitLab needs to migrate tha Dat
 can see the status in the GitLab container log (DSM docker backend). The Update is complete when 
 the CPU begins to idle.    
 
-- **2016-03-05** - sameersbn/gitlab:8.16.6 (305.1MB)
-- **2016-02-05** - sameersbn/gitlab:8.16.3 (303.3MB)
-- **2016-01-25** - sameersbn/gitlab:8.15.4 (314.8MB)
-- **2016-01-08** - sameersbn/gitlab:8.15.2 (298.3MB)
+- **2017-03-27** - sameersbn/gitlab:9.0.0  (390.5MB)
+- **2017-03-05** - sameersbn/gitlab:8.16.6 (305.1MB)
+- **2017-02-05** - sameersbn/gitlab:8.16.3 (303.3MB)
+- **2017-01-25** - sameersbn/gitlab:8.15.4 (314.8MB)
+- **2017-01-08** - sameersbn/gitlab:8.15.2 (298.3MB)
 - **2016-12-03** - sameersbn/gitlab:8.14.1 (313.9MB)
 - **2016-11-17** - sameersbn/gitlab:8.13.5 (308.7MB)
 - **2016-10-30** - sameersbn/gitlab:8.13.1 (308.6MB)
@@ -51,7 +52,7 @@ the CPU begins to idle.
 - **2015-12-31** - sameersbn/gitlab:8.3.2 (254.3MB)
 - **2015-12-14** - sameersbn/gitlab:8.2.3 (250.9MB)
 
-#Known Problems
+# Known Problems
 - DSM 6.1 takes the old Gitlab icon from the original package instead the updated icon from from my package.
 - DSM 6.0-7321 breaks the docker container. You can fix it by reinstalling the synology-gitlab package (without changing any settings)
 - When you have troubles updating, update again an re-enter the gitlab database credentials.
