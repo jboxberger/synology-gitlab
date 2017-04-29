@@ -12,7 +12,7 @@ sameersbn/redis:latest (about 66MB)  https://hub.docker.com/r/sameersbn/redis/
 Since i can't test all architectures i had to make a choice which i can cover or which i expect to work. If your architecture is not in 
 this list so please feel free to contact me and we can give it a try.
  
-For now this package should work on this architectures: **x86 avoton bromolow cedarview braswell kvmx64**
+For now this package should work on this architectures: **x86 avoton bromolow cedarview braswell kvmx64 broadwell**
 
 You can check the architecture of your device here: https://github.com/SynoCommunity/spksrc/wiki/Architecture-per-Synology-model
 
@@ -24,6 +24,7 @@ installation/update - takes some minutes because GitLab needs to migrate tha Dat
 can see the status in the GitLab container log (DSM docker backend). The Update is complete when 
 the CPU begins to idle.    
 
+- **2017-03-27** - sameersbn/gitlab:9.1.1  (445.4MB)
 - **2017-03-27** - sameersbn/gitlab:9.0.0  (390.5MB)
 - **2017-03-05** - sameersbn/gitlab:8.16.6 (305.1MB)
 - **2017-02-05** - sameersbn/gitlab:8.16.3 (303.3MB)
