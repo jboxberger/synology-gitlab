@@ -24,7 +24,7 @@ installation/update - takes some minutes because GitLab needs to migrate tha Dat
 can see the status in the GitLab container log (DSM docker backend). The Update is complete when 
 the CPU begins to idle.    
 
-- **2017-03-27** - sameersbn/gitlab:9.1.1  (445.4MB)
+- **2017-04-30** - sameersbn/gitlab:9.1.1  (445.4MB)
 - **2017-03-27** - sameersbn/gitlab:9.0.0  (390.5MB)
 - **2017-03-05** - sameersbn/gitlab:8.16.6 (305.1MB)
 - **2017-02-05** - sameersbn/gitlab:8.16.3 (303.3MB)
