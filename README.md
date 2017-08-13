@@ -3,9 +3,9 @@ Updated an improved Original Synology Package from
 https://www.synology.com/de-de/dsm/app_packages/Docker-GitLab
 
 ## Packages used:  
-The following docker images will be downloaded during the installation. This will take some time so please be ptaient.
+The following docker images will be downloaded during the installation. **_This will take some time so please be ptaient_**.
 
-sameersbn/gitlab:8.x.x (about 300MB) https://hub.docker.com/r/sameersbn/gitlab/   
+sameersbn/gitlab:9.x.x (about 530MB) https://hub.docker.com/r/sameersbn/gitlab/   
 sameersbn/redis:latest (about 66MB)  https://hub.docker.com/r/sameersbn/redis/  
 
 ## Supported Architectures
@@ -17,7 +17,7 @@ For now this package should work on this architectures: **x86 avoton bromolow ce
 You can check the architecture of your device here: https://github.com/SynoCommunity/spksrc/wiki/Architecture-per-Synology-model
 
 # Updates
-**Please be patient during the Update process**. Updates may take several minutes because the 
+**_Please be patient during the Update process_**. Updates may take several minutes because the 
 new docker Image needs to be downloaded from the docker-hub. Depending on your internet connection 
 the download of approximate 350MB can take some time. The first docker container boot up - after 
 installation/update - takes some minutes because GitLab needs to migrate tha Database first, you 
