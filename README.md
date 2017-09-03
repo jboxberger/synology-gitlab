@@ -5,25 +5,26 @@ https://www.synology.com/de-de/dsm/app_packages/Docker-GitLab
 ## Packages used:  
 The following docker images will be downloaded during the installation. **_This will take some time so please be ptaient_**.
 
-sameersbn/gitlab:9.x.x (about 530MB) https://hub.docker.com/r/sameersbn/gitlab/   
+sameersbn/gitlab:9.x.x (about 620MB) https://hub.docker.com/r/sameersbn/gitlab/   
 sameersbn/redis:latest (about 66MB)  https://hub.docker.com/r/sameersbn/redis/  
 
 ## Supported Architectures
 Since i can't test all architectures i had to make a choice which i can cover or which i expect to work. If your architecture is not in 
 this list so please feel free to contact me and we can give it a try.
  
-For now this package should work on this architectures: **x86 avoton bromolow cedarview braswell kvmx64 broadwell**
+For now this package should work on this architectures: x86 avoton bromolow cedarview braswell kvmx64 broadwell
 
 You can check the architecture of your device here: https://github.com/SynoCommunity/spksrc/wiki/Architecture-per-Synology-model
 
 # Updates
 **_Please be patient during the Update process_**. Updates may take several minutes because the 
 new docker Image needs to be downloaded from the docker-hub. Depending on your internet connection 
-the download of approximate 350MB can take some time. The first docker container boot up - after 
+the **download of approximate 620MB** can take some time. The first docker container boot up - after 
 installation/update - takes some minutes because GitLab needs to migrate tha Database first, you 
 can see the status in the GitLab container log (DSM docker backend). The Update is complete when 
 the CPU begins to idle.    
 
+- **2017-09-03** - sameersbn/gitlab:9.5.2  (619.6MB)
 - **2017-08-14** - sameersbn/gitlab:9.4.4  (531.1MB)
 - **2017-07-15** - sameersbn/gitlab:9.3.5  (521.9MB)
 - **2017-05-31** - sameersbn/gitlab:9.2.2  (486.4MB)
