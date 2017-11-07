@@ -1,1 +1,1 @@
-createspk.sh GitLab GitLab-10.0.2
+createspk.sh GitLab GitLab-10.1.1
