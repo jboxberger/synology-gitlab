@@ -3,7 +3,7 @@ Updated an improved Original Synology Package from
 https://www.synology.com/de-de/dsm/app_packages/Docker-GitLab
 
 ## Packages used:  
-The following docker images will be downloaded during the installation. **_This will take some time so please be ptaient_**.
+The following docker images will be downloaded during the installation. **_This will take some time so please be patient_**.
 
 sameersbn/gitlab:10.x.x (about 620MB) https://hub.docker.com/r/sameersbn/gitlab/   
 sameersbn/redis:latest (about 66MB)  https://hub.docker.com/r/sameersbn/redis/  
