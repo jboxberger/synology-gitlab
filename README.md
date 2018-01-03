@@ -2,6 +2,7 @@
 I am facing several Problem during the update, but iam stil working on.
 - The package structure of the original package "Docker-GitLab-9.4.4-0050" chnaged dramatically.
 - MariaDB 10 has some issuees with Gitlab 10.3 (the db migration script breaks the instalation - bug reported)
+
 Because of the heavy changes a complete data migration is required, i'am bulding a script to make it easy.
 
 ## Update GitLab 10.3 Announcements:
