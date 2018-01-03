@@ -1,3 +1,14 @@
+## Update GitLab 10.3:
+I am facing several Problem during the update, but iam stil working on.
+- The package structure of the original package "Docker-GitLab-9.4.4-0050" chnaged dramatically.
+- MariaDB 10 has some issuees with Gitlab 10.3 (the db migration script breaks the instalation - bug reported)
+Because of the heavy changes a complete data migration is required, i'am bulding a script to make it easy.
+
+## Update GitLab 10.3 Announcements:
+- All-In-One (AIO) Packages will be available soon (complete no download on the fly required)
+- Backup/Restore Script will be available soon
+- New Package Namespace (new Gitlab icons will be displayed correctrly)
+
 ## synology-gitlab
 Updated an improved Original Synology Package from 
 https://www.synology.com/de-de/dsm/app_packages/Docker-GitLab
