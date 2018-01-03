@@ -8,7 +8,8 @@ Because of the heavy changes a complete data migration is required, i'am bulding
 ## Update GitLab 10.3 Announcements:
 - All-In-One (AIO) Packages will be available soon (complete no download on the fly required)
 - Backup/Restore Script will be available soon
-- New Package Namespace (new Gitlab icons will be displayed correctrly)
+- New package namespace (new Gitlab icons will be displayed correctly)
+- Support for packages < 10.0 will be discontinued
 
 ## synology-gitlab
 Updated an improved Original Synology Package from 
