@@ -7,6 +7,7 @@ This is an upgraded and improved GitLab package which uses the stock Synology Pa
 ## New since 10.1.1
 - All-In-One Installer
 - MariaDB10 Migration
+- Backup/Restore scripts
 - Keep ENV. Vars during Update (UNICORN_TIMEOUT GITLAB_HTTPS SSL_SELF_SIGNED SSL_KEY_PATH SSL_CERTIFICATE_PATH SSL_DHPARAM_PATH SSL_CA_CERTIFICATES_PATH)
 
 ## GitLab 10.3.x
@@ -18,6 +19,19 @@ Since i can't test all architectures i had to make a choice which i can cover or
 
 You can check the architecture of your device [here](https://github.com/SynoCommunity/spksrc/wiki/Architecture-per-Synology-model) 
 or [here](https://www.synology.com/en-us/knowledgebase/DSM/tutorial/General/What_kind_of_CPU_does_my_NAS_have).
+
+# Backup
+```
+# backup files will be saved in docker/backup directory
+# the backup contains the config files including !PASSWORDS! be shure to keep them in an safe place!
+sudo ./var/packages/Docker-GitLab/scripts/backup --maria-db-root-password "<root-password>"	
+```
+# Restore
+```
+# restoring to a mismatched GitLab Version (e.g. 10.1.4 backup file to 9.4.4 GitLab) my cause problems
+# i highly reccommend to restore only matching backup and GitLab versions.  
+sudo ./var/packages/Docker-GitLab/scripts/restore --maria-db-root-password "<root-password>" --restore-file "2018-01-27-16-12-03-gitlab-10.1.4.tar.gz"
+```
 
 # Updates
 **_Please be patient during the Update process_**. The first docker container boot up - after 
