@@ -13,7 +13,7 @@ This is an upgraded and improved GitLab package which uses the stock Synology Pa
 Database Migration fails because of MariaDB ROW_FORMAT, i am working on it.
  
 ## Supported Architectures
-**x86 avoton bromolow cedarview braswell kvmx64 broadwell apollolake** 
+**x86 avoton bromolow cedarview braswell kvmx64 broadwell apollolake**  
 Since i can't test all architectures i had to make a choice which i can cover or which i expect to work. If your architecture is not in this list so please feel free to contact me and we can give it a try.  
 
 You can check the architecture of your device [here](https://github.com/SynoCommunity/spksrc/wiki/Architecture-per-Synology-model) 
