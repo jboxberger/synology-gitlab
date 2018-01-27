@@ -48,8 +48,7 @@ The first docker container boot up - after installation/update - takes some minu
 | Old           | 9.5.2         | 10.1.4      | ok                 |
 | Old           | 10.0.2        | 10.1.4      | ok                 |
 | Old           | 10.1.1        | 10.1.4      | ok                 |
-| New           | 10.1.4        | 10.2.2      | ok                 |
-| New           | 10.2.2        | 10.2.5      | ok                 |
+| New           | 10.1.4        | 10.2.5      | ok                 |
 
 #### DSM 6.1.4-15217 
 | Package Type  | Prev. Version | New Version | Status             |
@@ -60,8 +59,7 @@ The first docker container boot up - after installation/update - takes some minu
 | Old           | 9.5.2         | 10.1.4      | ok                 |
 | Old           | 10.0.2        | 10.1.4      | ok                 |
 | Old           | 10.1.1        | 10.1.4      | ok                 |
-| New           | 10.1.4        | 10.2.2      | ok                 |
-| New           | 10.2.2        | 10.2.5      | ok                 |
+| New           | 10.1.4        | 10.2.5      | ok                 |
 | New           | 10.2.5        | 10.3.x      | DB Migrate fail    |
 
 ```
