@@ -1,0 +1,184 @@
+#!/bin/bash
+DOCKER_WEBAPI=/usr/syno/bin/synowebapi
+DOCKER_GITLAB_CONFIG_CUSTOM="$ETC_PATH"/config_custom
+DOCKER_GITLAB_CONFIG_CONTAINER_PORTS="$ETC_PATH"/config_container_ports
+DOCKER_GITLAB_CONFIG_FILE=/tmp/"$GITLAB_NAME".config
+
+#=======================================================================================================================
+# stringInArray
+#=======================================================================================================================
+stringInArray() {
+  local e match="$1"
+  shift
+  for e; do [[ "$e" == "$match" ]] && return 1; done
+  return 0
+}
+
+#=======================================================================================================================
+# BackupCustomEnvironmentVariablesOld
+#=======================================================================================================================
+BackupCustomEnvironmentVariables()
+{
+    $DOCKER_WEBAPI --exec api=SYNO.Docker.Container.Profile version=1 method=export outfile="$DOCKER_GITLAB_CONFIG_FILE" name="$GITLAB_NAME"
+    if ! [ -s "$DOCKER_GITLAB_CONFIG_FILE" ]; then
+      return 0
+    fi
+
+    env_backup_file=$(cd `dirname $0` && pwd)/env_backup
+    declare -A env_backup_variables; declare -a keys;  declare -a values;
+
+    i=0
+    while read line;
+    do
+        env_backup_variables[$i]=$(echo "$line" | tr -d '\r')
+        (( i++ ))
+    done < $env_backup_file
+
+    # Rewrite File from new
+    if [ -f "$DOCKER_GITLAB_CONFIG_CUSTOM" ]; then
+        rm "$DOCKER_GITLAB_CONFIG_CUSTOM"
+    fi
+
+    i=0
+    tmp_keys=$(jq '.env_variables[] | .key' <"$DOCKER_GITLAB_CONFIG_FILE" | tr -d '"')
+    while read line
+    do
+        keys[$i]="$line"
+        (( i++ ))
+    done <<< "${tmp_keys[@]}"
+
+    i=0
+    tmp_values=$(jq '.env_variables[] | .value' <"$DOCKER_GITLAB_CONFIG_FILE" | tr -d '"')
+    while read line
+    do
+        values[$i]="$line"
+        (( i++ ))
+    done <<< "${tmp_values[@]}"
+
+    for i in "${!keys[@]}"
+    do
+        stringInArray "${keys[$i]}" "${env_backup_variables[@]}"
+        if [ $? == 1 ]; then
+            echo "${keys[$i]}=${values[$i]}" >> "$DOCKER_GITLAB_CONFIG_CUSTOM"
+        fi
+    done
+
+    rm $DOCKER_GITLAB_CONFIG_FILE
+    return 1
+}
+
+#=======================================================================================================================
+# RestoreCustomEnvironmentVariables
+#=======================================================================================================================
+RestoreCustomEnvironmentVariables()
+{
+    declare -a keys
+
+    # if file exists and has a size greater than zero
+    if ! [ -s $DOCKER_GITLAB_CONFIG_CUSTOM ]
+    then
+        return 0
+    fi
+
+    cp $GITLAB_PROFILE $GITLAB_PROFILE"_backup"
+    chmod 0644 $GITLAB_PROFILE"_backup"
+
+    i=0
+    tmp_keys=$(jq '.env_variables[].key' <"$GITLAB_PROFILE" | tr -d '"')
+    while read line
+    do
+        keys[$i]="$line"
+        (( i++ ))
+    done <<< "${tmp_keys[@]}"
+
+    while read LINE;
+    do
+        key=$(echo $LINE | cut -f1 -d=)
+        value=$(echo $LINE | cut -f2 -d=)
+        value=$(echo "$value" | tr -d '\r') # trim \r on line-end
+        stringInArray "$key" "${keys[@]}"
+        if [ $? == 1 ]; then
+            index=$(echo ${keys[@]/$key//} | cut -d/ -f1 | wc -w | tr -d ' ')
+             #echo "$key:$value:$index"
+            jq -c ".env_variables[$index].value=\"$value\""  <$GITLAB_PROFILE >$GITLAB_PROFILE".out" && mv $GITLAB_PROFILE".out" $GITLAB_PROFILE
+        else
+            jq -c ".env_variables += [{\"key\" : \"$key\", \"value\" : \"$value\"}]"  <$GITLAB_PROFILE >$GITLAB_PROFILE".out" && mv $GITLAB_PROFILE".out" $GITLAB_PROFILE
+        fi
+    done < $DOCKER_GITLAB_CONFIG_CUSTOM
+}
+
+#=======================================================================================================================
+# BackupContainerPorts
+#=======================================================================================================================
+BackupContainerPorts()
+{
+    declare -a container_ports;  declare -a host_ports; declare -a types;
+
+    $DOCKER_WEBAPI --exec api=SYNO.Docker.Container.Profile version=1 method=export outfile="$DOCKER_GITLAB_CONFIG_FILE" name="$GITLAB_NAME"
+    if ! [ -s "$DOCKER_GITLAB_CONFIG_FILE" ]; then
+      return 0
+    fi
+
+    # Rewrite File from new
+    if [ -f "$DOCKER_GITLAB_CONFIG_CONTAINER_PORTS" ]; then
+        rm "$DOCKER_GITLAB_CONFIG_CONTAINER_PORTS"
+    fi
+
+    i=0
+    tmp_container_ports=$(jq '.port_bindings[].container_port' <"$DOCKER_GITLAB_CONFIG_FILE" | tr -d '"')
+    while read line
+    do
+        container_ports[$i]="$line"
+        (( i++ ))
+    done <<< "${tmp_container_ports[@]}"
+
+    i=0
+    tmp_host_ports=$(jq '.port_bindings[].host_port' <"$DOCKER_GITLAB_CONFIG_FILE" | tr -d '"')
+    while read line
+    do
+        host_ports[$i]="$line"
+        (( i++ ))
+    done <<< "${tmp_host_ports[@]}"
+
+    i=0
+    tmp_types=$(jq '.port_bindings[].type' <"$DOCKER_GITLAB_CONFIG_FILE" | tr -d '"')
+    while read line
+    do
+        types[$i]="$line"
+        (( i++ ))
+    done <<< "${tmp_types[@]}"
+
+    for i in "${!container_ports[@]}"
+    do
+        echo "${container_ports[$i]}:${host_ports[$i]}:${types[$i]}" >> "$DOCKER_GITLAB_CONFIG_CONTAINER_PORTS"
+    done
+
+    rm $DOCKER_GITLAB_CONFIG_FILE
+    return 1
+}
+
+#=======================================================================================================================
+# BackupContainerPorts
+#=======================================================================================================================
+RestoreContainerPorts()
+{
+    # if file exists and has a size greater than zero
+    if ! [ -s $DOCKER_GITLAB_CONFIG_CONTAINER_PORTS ]
+    then
+        return 0
+    fi
+
+    cp $GITLAB_PROFILE $GITLAB_PROFILE"_backup_ports"
+    chmod 0644 $GITLAB_PROFILE"_backup_ports"
+
+    json_content=""
+    while read LINE;
+    do
+        container_port=$(echo $LINE | cut -f1 -d: | tr -d '\r')
+        host_port=$(echo $LINE | cut -f2 -d: | tr -d '\r')
+        type=$(echo $LINE | cut -f3 -d: | tr -d '\r')
+        json_content="$json_content{\"container_port\" : $container_port, \"host_port\" : \"$host_port\", \"type\" : \"$type\"},"
+    done < $DOCKER_GITLAB_CONFIG_CONTAINER_PORTS
+
+    jq -c ".port_bindings=[${json_content::-1}]" < $GITLAB_PROFILE > $GITLAB_PROFILE".out" && mv $GITLAB_PROFILE".out" $GITLAB_PROFILE
+}

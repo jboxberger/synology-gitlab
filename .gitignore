@@ -3,4 +3,5 @@
 *.spk
 build
 docker
+download
 source

@@ -4,12 +4,20 @@ This is an upgraded and improved GitLab package which uses the stock Synology Pa
 
 **Download latest SPK**: [here](https://github.com/jboxberger/synology-gitlab/releases)  
  
+## New since 10.1.1
+- All-In-One Installer
+- MariaDB10 Migration
+- Keep ENV. Vars during Update (UNICORN_TIMEOUT GITLAB_HTTPS SSL_SELF_SIGNED SSL_KEY_PATH SSL_CERTIFICATE_PATH SSL_DHPARAM_PATH SSL_CA_CERTIFICATES_PATH)
+
+## GitLab 10.3.x
+Database Migration fails because of MariaDB ROW_FORMAT, i am working on it.
+ 
 ## Supported Architectures
 **x86 avoton bromolow cedarview braswell kvmx64 broadwell apollolake** 
 Since i can't test all architectures i had to make a choice which i can cover or which i expect to work. If your architecture is not in this list so please feel free to contact me and we can give it a try.  
 
-You can check the architecture of your device here: https://github.com/SynoCommunity/spksrc/wiki/Architecture-per-Synology-model 
-or here https://www.synology.com/en-us/knowledgebase/DSM/tutorial/General/What_kind_of_CPU_does_my_NAS_have
+You can check the architecture of your device [here](https://github.com/SynoCommunity/spksrc/wiki/Architecture-per-Synology-model) 
+or [here](https://www.synology.com/en-us/knowledgebase/DSM/tutorial/General/What_kind_of_CPU_does_my_NAS_have).
 
 # Updates
 **_Please be patient during the Update process_**. The first docker container boot up - after 
