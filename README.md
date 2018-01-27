@@ -36,9 +36,9 @@ sudo ./var/packages/Docker-GitLab/scripts/restore --maria-db-root-password "<roo
 ```
 
 # Updates
-**_Please be patient during the Update process_**. The first docker container boot up - after 
-installation/update - takes some minutes because GitLab needs to migrate tha Database first, you can see the 
-status in the GitLab container log (DSM docker backend). The Update is complete when the CPU begins to idle.    
+**Always backup data before update!**   
+**_Please be patient during the Update process_**.   
+The first docker container boot up - after installation/update - takes some minutes because GitLab needs to migrate tha Database first, you can see the status in the GitLab container log (DSM docker backend). The Update is complete when the CPU begins to idle.    
  
 #### DSM 6.1.1-15101 
 | Package Type  | Prev. Version | New Version | Status             |
