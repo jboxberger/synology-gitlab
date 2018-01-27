@@ -24,15 +24,15 @@ BackupCustomEnvironmentVariables()
       return 0
     fi
 
-    env_backup_file=$(cd `dirname $0` && pwd)/env_backup
-    declare -A env_backup_variables; declare -a keys;  declare -a values;
+    env_ignore_file=$(cd `dirname $0` && pwd)/env_ignore
+    declare -A env_ignore_variables; declare -a keys;  declare -a values;
 
     i=0
     while read line;
     do
-        env_backup_variables[$i]=$(echo "$line" | tr -d '\r')
+        env_ignore_variables[$i]=$(echo "$line" | tr -d '\r')
         (( i++ ))
-    done < $env_backup_file
+    done < $env_ignore_file
 
     # Rewrite File from new
     if [ -f "$DOCKER_GITLAB_CONFIG_CUSTOM" ]; then
@@ -57,8 +57,8 @@ BackupCustomEnvironmentVariables()
 
     for i in "${!keys[@]}"
     do
-        stringInArray "${keys[$i]}" "${env_backup_variables[@]}"
-        if [ $? == 1 ]; then
+        stringInArray "${keys[$i]}" "${env_ignore_variables[@]}"
+        if [ $? == 0 ]; then
             echo "${keys[$i]}=${values[$i]}" >> "$DOCKER_GITLAB_CONFIG_CUSTOM"
         fi
     done
