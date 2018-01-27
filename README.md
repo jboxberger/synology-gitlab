@@ -8,7 +8,7 @@ This is an upgraded and improved GitLab package which uses the stock Synology Pa
 - All-In-One Installer
 - MariaDB10 Migration
 - Backup/Restore scripts
-- Keep ENV. Vars during Update (UNICORN_TIMEOUT GITLAB_HTTPS SSL_SELF_SIGNED SSL_KEY_PATH SSL_CERTIFICATE_PATH SSL_DHPARAM_PATH SSL_CA_CERTIFICATES_PATH)
+- restore custom ENVIRONMENT variables after update (any variable not in scripts/env_ignore)
 
 ## GitLab 10.3.x
 Database Migration fails because of MariaDB ROW_FORMAT, i am working on it.
