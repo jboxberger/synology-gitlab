@@ -24,12 +24,14 @@ or [here](https://www.synology.com/en-us/knowledgebase/DSM/tutorial/General/What
 ```
 # backup files will be saved in docker/backup directory
 # the backup contains the config files including !PASSWORDS! be shure to keep them in an safe place!
+
 sudo ./var/packages/Docker-GitLab/scripts/backup --maria-db-root-password "<root-password>"	
 ```
 # Restore
 ```
 # restoring to a mismatched GitLab Version (e.g. 10.1.4 backup file to 9.4.4 GitLab) my cause problems
-# i highly reccommend to restore only matching backup and GitLab versions.  
+# i highly reccommend to restore only matching backup and GitLab versions.
+  
 sudo ./var/packages/Docker-GitLab/scripts/restore --maria-db-root-password "<root-password>" --restore-file "2018-01-27-16-12-03-gitlab-10.1.4.tar.gz"
 ```
 
