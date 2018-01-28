@@ -1,0 +1,141 @@
+#!/bin/sh
+. "$(dirname $0)"/common
+. "$ETC_PATH"/config
+
+
+########################################################################################################################
+# DEFAULTS
+########################################################################################################################
+current_dir=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
+MYSQL10_BIN_DIR="$(dirname -- "$MYSQL10_BIN")"
+GITLAB_PACKAGE_CONTROL="$current_dir"/start-stop-status
+PHPMYADMIN_PACKAGE_CONTROL=/var/packages/phpMyAdmin/scripts/start-stop-status
+MARIADB10_PACKAGE_CONTROL=/var/packages/MariaDB10/scripts/start-stop-status
+MARIADB10_CONFIG=/volume1/@appstore/MariaDB10/usr/local/mariadb10/etc/mysql/my.cnf
+
+maria_db_root_password=
+
+########################################################################################################################
+# The command line help
+########################################################################################################################
+display_help() {
+    echo "Usage: $0 [option...]" >&2
+    echo
+    echo "   --maria-db-root-password   MariaDB root password. *required'"
+    echo
+    # echo some stuff here for the -a or --add-options
+    exit 1
+}
+
+########################################################################################################################
+# PARAMETER HANDLING
+########################################################################################################################
+while [ $# -ge 1 ]; do
+    case "$1" in
+        --maria-db-root-password)
+            maria_db_root_password="$2"; shift 2
+            if ! [ -z "$maria_db_root_password" ]; then
+                MARIADB_PASS="${maria_db_root_password:+-p$maria_db_root_password}"
+                if [ "$($MYSQL10_BIN_DIR/mysqladmin ping "$MARIADB_PASS")" != "mysqld is alive" ]; then
+                    exit 1
+                fi
+            fi
+        ;;
+        -h | --help)
+            display_help  # Call your function
+            exit 0
+        ;;
+        --) # End of all options
+            shift
+            break
+        ;;
+        -*)
+            echo "Error: Unknown option: $1" >&2
+            ## or call function display_help
+            exit 1
+        ;;
+        *)  # No more options
+            break
+        ;;
+    esac
+done
+
+########################################################################################################################
+# VALIDATE PARAMETER DEPENDENCIES
+########################################################################################################################
+if [ -z "$maria_db_root_password" ]; then
+    echo "--maria-db-root-password is not set!"
+    exit 1
+fi
+
+# db exists?
+RESULT=$($MYSQL10_BIN_DIR/mysqlshow --user=root --password=$maria_db_root_password $DB_NAME | grep -v Wildcard | grep -o $DB_NAME)
+if ! [ "$RESULT" == "$DB_NAME" ]; then
+    echo "database $DB_NAME not exists!"
+    exit 1
+fi
+
+########################################################################################################################
+# Modify MariaDB10 configuration
+########################################################################################################################
+innodb_file_format=$(cat $MARIADB10_CONFIG | grep innodb_file_format)
+if [ -z "$innodb_file_format" ]; then
+  sed -i '/innodb_file_per_table = 1/a innodb_file_format = barracuda' $MARIADB10_CONFIG
+fi
+
+innodb_large_prefix=$(cat $MARIADB10_CONFIG | grep innodb_large_prefix)
+if [ -z "$innodb_large_prefix" ]; then
+  sed -i '/innodb_file_per_table = 1/a innodb_large_prefix = 1' $MARIADB10_CONFIG
+fi
+
+########################################################################################################################
+# Modify Data
+########################################################################################################################
+CHARACTER_SET="utf8" # default utf8
+COLLATE="utf8_unicode_ci" # default utf8_general_ci
+ROW_FORMAT="DYNAMIC" # default COMPACT
+tables=$($MYSQL10_BIN -u root -p"$maria_db_root_password" -e "SELECT tbl.TABLE_NAME FROM information_schema.TABLES tbl WHERE tbl.TABLE_SCHEMA = '$DB_NAME' AND tbl.TABLE_TYPE='BASE TABLE'")
+
+for tableName in $tables; do
+    if [[ "$tableName" != "TABLE_NAME" ]] ; then
+        $MYSQL10_BIN -u root -p"$maria_db_root_password" -e "ALTER TABLE $DB_NAME.$tableName DEFAULT CHARACTER SET $CHARACTER_SET COLLATE $COLLATE ROW_FORMAT = $ROW_FORMAT;"
+        echo "$tableName - done"
+    fi
+done
+
+########################################################################################################################
+# STOP PACKAGES
+########################################################################################################################
+echo "stopping GitLab"
+x=$($GITLAB_PACKAGE_CONTROL stop 2> /dev/null)
+
+if [ -f $PHPMYADMIN_PACKAGE_CONTROL ]; then
+  echo "stopping phpMyAdmin"
+  x=$($PHPMYADMIN_PACKAGE_CONTROL stop 2> /dev/null)
+fi
+
+if [ -f $MARIADB10_PACKAGE_CONTROL ]; then
+  echo "stopping MariaDB10"
+  x=$($MARIADB10_PACKAGE_CONTROL stop 2> /dev/null)
+fi
+
+########################################################################################################################
+# START PACKAGES
+########################################################################################################################
+if [ -f $MARIADB10_PACKAGE_CONTROL ]; then
+  echo "start MariaDB10"
+  x=$($MARIADB10_PACKAGE_CONTROL start 2> /dev/null)
+fi
+
+if [ -f $PHPMYADMIN_PACKAGE_CONTROL ]; then
+  echo "start phpMyAdmin"
+  x=$($PHPMYADMIN_PACKAGE_CONTROL start 2> /dev/null)
+fi
+
+echo "start GitLab"
+x=$($GITLAB_PACKAGE_CONTROL start 2> /dev/null)
+
+########################################################################################################################
+# FINISH
+########################################################################################################################
+echo "modification completed!"
