@@ -94,11 +94,11 @@ fi
 CHARACTER_SET="utf8" # default utf8
 COLLATE="utf8_unicode_ci" # default utf8_general_ci
 ROW_FORMAT="DYNAMIC" # default COMPACT
-tables=$($MYSQL10_BIN -u root -p"$maria_db_root_password" -e "SELECT tbl.TABLE_NAME FROM information_schema.TABLES tbl WHERE tbl.TABLE_SCHEMA = '$DB_NAME' AND tbl.TABLE_TYPE='BASE TABLE'")
+tables=$($MYSQL10_BIN -u $DB_USER -p"$DB_PASS" -e "SELECT tbl.TABLE_NAME FROM information_schema.TABLES tbl WHERE tbl.TABLE_SCHEMA = '$DB_NAME' AND tbl.TABLE_TYPE='BASE TABLE'")
 
 for tableName in $tables; do
     if [[ "$tableName" != "TABLE_NAME" ]] ; then
-        $MYSQL10_BIN -u root -p"$maria_db_root_password" -e "ALTER TABLE $DB_NAME.$tableName DEFAULT CHARACTER SET $CHARACTER_SET COLLATE $COLLATE ROW_FORMAT = $ROW_FORMAT;"
+        $MYSQL10_BIN -u $DB_USER -p"$DB_PASS" -e "ALTER TABLE $DB_NAME.$tableName DEFAULT CHARACTER SET $CHARACTER_SET COLLATE $COLLATE ROW_FORMAT = $ROW_FORMAT;"
         echo "$tableName - done"
     fi
 done

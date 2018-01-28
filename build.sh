@@ -297,12 +297,23 @@ sed -i -e "s|$redis_base_package_name $redis_base_package_version|$redis_target_
 sed -i -e "s|redis-$redis_base_package_version.tar.xz|redis-$redis_target_package_version.tar.xz|g" $project_dir/scripts/postinst
 
 ########################################################################################################################
+# Disable Redis Logging
+########################################################################################################################
+sed -i  '/$API --exec api=SYNO.Docker.Container version=1 method=delete name=synology_gitlab force=true preserve_profile=false/a $API --exec api=SYNO.Docker.Container version=1 method=delete name=synology_gitlab_redis force=true preserve_profile=false \n\n$API --exec api=SYNO.Docker.Container version=1 method=create is_run_instantly=true \\\n  profile="$(cat "$REDIS_PROFILE")" || exit 1' $project_dir/scripts/postinst
+if [ "$redis_target_package_name" == "redis" ]; then # do not modify 'sameersbn/redis'
+    # save "43200 1" # <seconds> <at least changes> ->each 12h
+    # save "86400 1" # <seconds> <at least changes> ->each 24h
+    sed -i 's/exit 0/\n$DOCKER_BIN exec "$REDIS_NAME" sed -i -e '"'"'s|^exec "$@"$|exec "\$@" --save ""|g'"'"' \/usr\/local\/bin\/docker-entrypoint.sh\n&/' $project_dir/scripts/postinst
+fi
+
+########################################################################################################################
 # INJECT HOOKS, CODE AND DATA
 ########################################################################################################################
 echo '. "$(dirname $0)"/common_custom' >> $project_dir/scripts/common
 sed -i '/. "$(dirname "$0")"\/common/a . "$(dirname "$0")"\/preupgrade_custom' $project_dir/scripts/preupgrade
 #sed -i 's/exit 0/. "$(dirname "$0")"\/postupgrade_custom\n&/' $project_dir/scripts/postupgrade
 sed -i 's/\/var\/packages\/Docker\/target\/tool\/helper \\/RestoreCustomEnvironmentVariables\nRestoreContainerPorts\n\n&/' $project_dir/scripts/postinst
+#sed -i 's/exit 0/\nMariaDBFixRowFormat\n&/' $project_dir/scripts/postinst
 sed -i '/rm "$ETC_PATH"\/config/a\\trm "$ETC_PATH"\/config_custom\n\trm "$ETC_PATH"\/config_container_ports' $project_dir/scripts/postuninst
 
 ########################################################################################################################
@@ -316,16 +327,6 @@ for wizzard_file in $project_dir/WIZARD_UIFILES/*.sh ; do
   sed -i "s/NeedMigrateDB()/$NeedMigrateDBCustomFunction\n\n&/" $wizzard_file
   sed -i -e "s|if NeedMigrateDB \"\$version\"; then|if NeedMigrateDBCustom \"\$SYNOPKG_OLD_PKGVER\"; then|g" $wizzard_file
 done
-
-########################################################################################################################
-# Disable Redis Logging
-########################################################################################################################
-sed -i  '/$API --exec api=SYNO.Docker.Container version=1 method=delete name=synology_gitlab force=true preserve_profile=false/a $API --exec api=SYNO.Docker.Container version=1 method=delete name=synology_gitlab_redis force=true preserve_profile=false \n\n$API --exec api=SYNO.Docker.Container version=1 method=create is_run_instantly=true \\\n  profile="$(cat "$REDIS_PROFILE")" || exit 1' $project_dir/scripts/postinst
-if [ "$redis_target_package_name" == "redis" ]; then # do not modify 'sameersbn/redis'
-    # save "43200 1" # <seconds> <at least changes> ->each 12h
-    # save "86400 1" # <seconds> <at least changes> ->each 24h
-    sed -i 's/exit 0/\n$DOCKER_BIN exec "$REDIS_NAME" sed -i -e '"'"'s|^exec "$@"$|exec "\$@" --save ""|g'"'"' \/usr\/local\/bin\/docker-entrypoint.sh\n&/' $project_dir/scripts/postinst
-fi
 
 if [ "$all_in_one" == "true" ]; then
     mkdir -p "$project_dir/package/docker"

@@ -182,3 +182,88 @@ RestoreContainerPorts()
 
     jq -c ".port_bindings=[${json_content::-1}]" < $GITLAB_PROFILE > $GITLAB_PROFILE".out" && mv $GITLAB_PROFILE".out" $GITLAB_PROFILE
 }
+
+#=======================================================================================================================
+# MariaDBFixRowFormat
+#=======================================================================================================================
+MariaDBFixRowFormat()
+{
+
+  ########################################################################################################################
+  # DEFAULTS
+  ########################################################################################################################
+  local current_dir=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
+  local MYSQL10_BIN_DIR="$(dirname -- "$MYSQL10_BIN")"
+  local GITLAB_PACKAGE_CONTROL="$current_dir"/start-stop-status
+  local PHPMYADMIN_PACKAGE_CONTROL=/var/packages/phpMyAdmin/scripts/start-stop-status
+  local MARIADB10_PACKAGE_CONTROL=/var/packages/MariaDB10/scripts/start-stop-status
+  local MARIADB10_CONFIG=/volume1/@appstore/MariaDB10/usr/local/mariadb10/etc/mysql/my.cnf
+
+  local innodb_file_format
+  local innodb_large_prefix
+  local x
+
+  # db exists?
+  local RESULT=$($MYSQL10_BIN_DIR/mysqlshow --user=$DB_USER --password=$DB_PASS $DB_NAME | grep -v Wildcard | grep -o $DB_NAME)
+  if ! [ "$RESULT" == "$DB_NAME" ]; then
+      return 1
+  fi
+
+  ########################################################################################################################
+  # STOP PACKAGES
+  ########################################################################################################################
+  x=$($GITLAB_PACKAGE_CONTROL stop 2> /dev/null)
+
+  if [ -f $PHPMYADMIN_PACKAGE_CONTROL ]; then
+    x=$($PHPMYADMIN_PACKAGE_CONTROL stop 2> /dev/null)
+  fi
+
+  if [ -f $MARIADB10_PACKAGE_CONTROL ]; then
+    x=$($MARIADB10_PACKAGE_CONTROL stop 2> /dev/null)
+  fi
+
+  ########################################################################################################################
+  # Modify MariaDB10 configuration
+  ########################################################################################################################
+  innodb_file_format=$(cat $MARIADB10_CONFIG | grep innodb_file_format)
+  if [ -z "$innodb_file_format" ]; then
+    sed -i '/innodb_file_per_table = 1/a innodb_file_format = barracuda' $MARIADB10_CONFIG
+    echo "my.cnf set innodb_file_format = barracuda"
+  fi
+
+  innodb_large_prefix=$(cat $MARIADB10_CONFIG | grep innodb_large_prefix)
+  if [ -z "$innodb_large_prefix" ]; then
+    sed -i '/innodb_file_per_table = 1/a innodb_large_prefix = 1' $MARIADB10_CONFIG
+    echo "my.cnf set innodb_large_prefix = 1"
+  fi
+
+  ########################################################################################################################
+  # START PACKAGES
+  ########################################################################################################################
+  if [ -f $MARIADB10_PACKAGE_CONTROL ]; then
+    x=$($MARIADB10_PACKAGE_CONTROL start 2> /dev/null)
+  fi
+
+  if [ -f $PHPMYADMIN_PACKAGE_CONTROL ]; then
+    x=$($PHPMYADMIN_PACKAGE_CONTROL start 2> /dev/null)
+  fi
+
+  # GitLab package will start automatically
+
+  ########################################################################################################################
+  # modify tables
+  ########################################################################################################################
+  local CHARACTER_SET="utf8mb4" # default utf8
+  local COLLATE="utf8mb4_unicode_ci" # default utf8_general_ci
+  local ROW_FORMAT="DYNAMIC" # default COMPACT
+  local tables=$($MYSQL10_BIN -u $DB_USER -p"$DB_PASS" -e "SELECT tbl.TABLE_NAME FROM information_schema.TABLES tbl WHERE tbl.TABLE_SCHEMA = '$DB_NAME' AND tbl.TABLE_TYPE='BASE TABLE'")
+
+  for tableName in $tables; do
+      if [[ "$tableName" != "TABLE_NAME" ]] ; then
+          $MYSQL10_BIN -u $DB_USER -p"$DB_PASS" -e "ALTER TABLE $DB_NAME.$tableName DEFAULT CHARACTER SET $CHARACTER_SET COLLATE $COLLATE ROW_FORMAT = $ROW_FORMAT;"
+          echo "$tableName - fix row format done"
+      fi
+  done
+
+  return 0
+}
