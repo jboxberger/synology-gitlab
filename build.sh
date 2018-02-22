@@ -71,8 +71,6 @@ gitlab_target_package_download_size=700
 redis_target_package_fqn="redis:3.2.11"
 redis_target_package_download_size=41
 
-all_in_one="false"
-
 gitlab_stock_package_name="Docker-GitLab"
 gitlab_stock_package_url="https://www.synology.com/de-de/dsm/packages/Docker-GitLab"
 
@@ -98,9 +96,6 @@ do
         -gv=*|--gitlab-download-size=*)
             gitlab_target_package_download_size="${i#*=}"
         ;;
-        --all-in-one)
-            all_in_one="true"
-        ;;
         *)
             # unknown option
         ;;
@@ -111,11 +106,13 @@ done
 ########################################################################################################################
 # PROCESS VARIABLES
 ########################################################################################################################
-gitlab_target_package_name=$(echo $gitlab_target_package_fqn | cut -f1 -d:)
-gitlab_target_package_version=$(echo $gitlab_target_package_fqn | cut -f2 -d:)
+gitlab_target_package_name=$(echo "$gitlab_target_package_fqn" | cut -f1 -d:)
+gitlab_target_package_version=$(echo "$gitlab_target_package_fqn" | cut -f2 -d:)
+gitlab_target_package_name_escaped=$(echo "$gitlab_target_package_name" | tr '/' '-')
 
-redis_target_package_name=$(echo $redis_target_package_fqn | cut -f1 -d:)
-redis_target_package_version=$(echo $redis_target_package_fqn | cut -f2 -d:)
+redis_target_package_name=$(echo "$redis_target_package_fqn" | cut -f1 -d:)
+redis_target_package_version=$(echo "$redis_target_package_fqn" | cut -f2 -d:)
+redis_target_package_name_escaped=$(echo "$redis_target_package_name" | tr '/' '-')
 
 ########################################################################################################################
 # VARIABLES
@@ -291,10 +288,10 @@ sed -i -e "s|^\s*\(SIZE_GITLAB\s*=\s*\).*\$|\1$gitlab_target_package_download_si
 sed -i -e "s|^\s*\(SIZE_REDIS\s*=\s*\).*\$|\1$redis_target_package_download_size|g" $project_dir/scripts/postinst
 
 sed -i -e "s|$gitlab_base_package_name $gitlab_base_package_version|$gitlab_target_package_name $gitlab_target_package_version|g" $project_dir/scripts/postinst
-sed -i -e "s|gitlab-$gitlab_base_package_version.tar.xz|gitlab-$gitlab_target_package_version.tar.xz|g" $project_dir/scripts/postinst
+sed -i -e "s|gitlab-$gitlab_base_package_version.tar.xz|$gitlab_target_package_name_escaped-$gitlab_target_package_version.tar.xz|g" $project_dir/scripts/postinst
 
 sed -i -e "s|$redis_base_package_name $redis_base_package_version|$redis_target_package_name $redis_target_package_version|g" $project_dir/scripts/postinst
-sed -i -e "s|redis-$redis_base_package_version.tar.xz|redis-$redis_target_package_version.tar.xz|g" $project_dir/scripts/postinst
+sed -i -e "s|redis-$redis_base_package_version.tar.xz|$redis_target_package_name_escaped-$redis_target_package_version.tar.xz|g" $project_dir/scripts/postinst
 
 ########################################################################################################################
 # Disable Redis Logging
@@ -328,23 +325,17 @@ for wizzard_file in $project_dir/WIZARD_UIFILES/*.sh ; do
   sed -i -e "s|if NeedMigrateDB \"\$version\"; then|if NeedMigrateDBCustom \"\$SYNOPKG_OLD_PKGVER\"; then|g" $wizzard_file
 done
 
-if [ "$all_in_one" == "true" ]; then
-    mkdir -p "$project_dir/package/docker"
-    if [ -f "docker/gitlab-$gitlab_target_package_version.tar.xz" ]; then
-        cp -rf "docker/gitlab-$gitlab_target_package_version.tar.xz" "$project_dir/package/docker/gitlab-$gitlab_target_package_version.tar.xz"
-    fi
-    if [ -f "docker/redis-$redis_target_package_version.tar.xz" ]; then
-        cp -rf "docker/redis-$redis_target_package_version.tar.xz" "$project_dir/package/docker/redis-$redis_target_package_version.tar.xz"
-    fi
+mkdir -p "$project_dir/package/docker"
+if [ -f "docker/$gitlab_target_package_name_escaped-$gitlab_target_package_version.tar.xz" ]; then
+    cp -rf "docker/$gitlab_target_package_name_escaped-$gitlab_target_package_version.tar.xz" "$project_dir/package/docker/$gitlab_target_package_name_escaped-$gitlab_target_package_version.tar.xz"
+fi
+if [ -f "docker/$redis_target_package_name_escaped-$redis_target_package_version.tar.xz" ]; then
+    cp -rf "docker/$redis_target_package_name_escaped-$redis_target_package_version.tar.xz" "$project_dir/package/docker/$redis_target_package_name_escaped-$redis_target_package_version.tar.xz"
 fi
 
 ########################################################################################################################
 # PACKAGE BUILD
 ########################################################################################################################
-aios="" #all-in-one-package
-if [ "$all_in_one" == "true" ]; then
-    aios="aio-"
-fi
 
 # compress package dir
 cd $project_dir/package/ && tar -zcf ../package.tgz * && cd ../../../
@@ -354,10 +345,6 @@ EXTRACTSIZE=$(du -k --block-size=1KB "$project_dir/package.tgz" | cut -f1)
 sed -i -e "/^extractsize=/s/=.*/=\"$EXTRACTSIZE\"/" $project_dir/INFO
 
 # create spk-name
-new_file_name=$project_name"-stock-"$aios$gitlab_target_package_version".spk"
+new_file_name=$project_name"-stock-aio-"$gitlab_target_package_version".spk"
 
 cd $project_dir/ && tar --format=gnu -cf ../../$target_dir/$new_file_name * && cd ../../
-
-if [ "$all_in_one" != "true" ]; then
-    ./build.sh --gitlab-fqn=$gitlab_target_package_fqn --gitlab-download-size=$gitlab_target_package_download_size --redis-fqn=$redis_target_package_fqn --redis-download-size=$redis_target_package_download_size --all-in-one
-fi

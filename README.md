@@ -10,7 +10,7 @@ This is an upgraded and improved GitLab package which uses the stock Synology Pa
 - Backup/Restore scripts
 - restore custom ENVIRONMENT variables after update (any variable not in scripts/env_ignore)
 
-## GitLab 10.3.x
+## GitLab 10.4.x
 Database Migration fails because of MariaDB ROW_FORMAT, i am working on it.
  
 ## Supported Architectures
@@ -61,6 +61,7 @@ The first docker container boot up - after installation/update - takes some minu
 | Old           | 10.1.1        | 10.1.4      | ok                 |
 | New           | 10.1.4        | 10.2.5      | ok                 |
 | New           | 10.2.5        | 10.3.x      | DB Migrate fail    |
+| New           | 10.2.5        | 10.4.2      | DB Migrate fail    |
 
 ```
 Stock: Package directly installed from Synology		
