@@ -5,8 +5,8 @@ redis_package_name="redis"
 
 # https://microbadger.com/images/sameersbn/gitlab
 declare -A versions;      declare -a orders;
-versions["10.1.4"]="667"; orders+=( "10.1.4" )
-versions["10.2.5"]="713"; orders+=( "10.2.5" )
+versions["10.1.4"]="699"; orders+=( "10.1.4" )
+versions["10.2.5"]="747"; orders+=( "10.2.5" )
 
 declare -A redis_sizes
 redis_sizes["3.2.6"]=68
