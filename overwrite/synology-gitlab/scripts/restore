@@ -44,7 +44,7 @@ while [ $# -ge 1 ]; do
             maria_db_root_password="$2"; shift 2
             if ! [ -z "$maria_db_root_password" ]; then
                 MARIADB_PASS="${maria_db_root_password:+-p$maria_db_root_password}"
-                if [ "$(mysqladmin ping "$MARIADB_PASS")" != "mysqld is alive" ]; then
+                if [ "$($MYSQL10_BIN_DIR/mysqladmin ping "$MARIADB_PASS")" != "mysqld is alive" ]; then
                     exit 1
                 fi
             fi
