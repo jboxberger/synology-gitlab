@@ -1,6 +1,6 @@
 # please use the NEW [synology-gitlab-jboxberger](https://github.com/jboxberger/synology-gitlab-jboxberger) package!
 
-...
+* * *
 
 [GitLab has dropped MariaDB Support.](https://docs.gitlab.com/ce/install/requirements.html#database) The 10.2.5 is the 
 latest version working with MariaDB10. Any higher version Fail to migrate the database schema. This is an GitLab issue
@@ -12,7 +12,7 @@ You can Migrate from Stock 9.4.4-0050 or from this package 10.1.4 and 10.2.5 ver
 
 This package will not be updated anymore and stay for legacy reasons.   
 
-...
+---------------------------------------
 
 ## synology-gitlab
 
