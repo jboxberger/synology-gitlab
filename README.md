@@ -1,3 +1,19 @@
+# please use the NEW [synology-gitlab-jboxberger](https://github.com/jboxberger/synology-gitlab-jboxberger) package!
+
+...
+
+[GitLab has dropped MariaDB Support.](https://docs.gitlab.com/ce/install/requirements.html#database) The 10.2.5 is the 
+latest version working with MariaDB10. Any higher version Fail to migrate the database schema. This is an GitLab issue
+which i can not fix and GitLab will not fix because it's not supported anymore.  
+
+If you don't want to wait until synology releases a updated package and if you would like to have some extra Features with
+a more frequent update sequence then you can use my GitLab PostgreSQL package [here](https://github.com/jboxberger/synology-gitlab-jboxberger).
+You can Migrate from Stock 9.4.4-0050 or from this package 10.1.4 and 10.2.5 very easily. Hope you like it.
+
+This package will not be updated anymore and stay for legacy reasons.   
+
+...
+
 ## synology-gitlab
 
 This is an upgraded and improved GitLab package which uses the stock Synology Package from [Synology Repo](https://www.synology.com/de-de/dsm/packages/Docker-GitLab). 
@@ -15,7 +31,8 @@ Database Migration fails because of MariaDB ROW_FORMAT, waiting for fix.
  
 ## Supported Architectures
 **x86 avoton bromolow cedarview braswell kvmx64 broadwell apollolake**  
-Since i can't test all architectures i had to make a choice which i can cover or which i expect to work. If your architecture is not in this list so please feel free to contact me and we can give it a try.  
+Since i can't test all architectures i had to make a choice which i can cover or which i expect to work. If your architecture 
+is not in this list so please feel free to contact me and we can give it a try.  
 
 You can check the architecture of your device [here](https://github.com/SynoCommunity/spksrc/wiki/Architecture-per-Synology-model) 
 or [here](https://www.synology.com/en-us/knowledgebase/DSM/tutorial/General/What_kind_of_CPU_does_my_NAS_have).
@@ -37,7 +54,8 @@ sudo ./var/packages/Docker-GitLab/scripts/restore --maria-db-root-password "<roo
 
 # Updates
 **Always backup data before update! _Please be patient during the Update process_**.   
-The first docker container boot up - after installation/update - takes some minutes because GitLab needs to migrate the Database first, you can see the status in the GitLab container log (DSM docker backend). The Update is complete when the CPU begins to idle.    
+The first docker container boot up - after installation/update - takes some minutes because GitLab needs to migrate the 
+Database first, you can see the status in the GitLab container log (DSM docker backend). __**The Update is complete when the CPU begins to idle.**__    
  
 #### DSM 6.1.1-15101 
 | Package Type  | Prev. Version | New Version | Status             |
@@ -63,6 +81,7 @@ The first docker container boot up - after installation/update - takes some minu
 | New           | 10.2.5        | 10.3.x      | DB Migrate fail    |
 | New           | 10.2.5        | 10.4.2      | DB Migrate fail    |
 | New           | 10.2.5        | 10.5.1      | DB Migrate fail    |
+| New           | 10.2.5        | 10.5.5      | DB Migrate fail    |
 
 ```
 Stock: Package directly installed from Synology		
