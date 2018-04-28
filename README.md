@@ -17,7 +17,14 @@ You can Migrate from stock Synology 9.4.4-0050 or from this 10.1.4/10.2.5 packag
 This is an upgraded and improved GitLab package which uses the stock Synology Package from [Synology Repo](https://www.synology.com/de-de/dsm/packages/Docker-GitLab). 
 
 **Download latest SPK**: [here](https://github.com/jboxberger/synology-gitlab/releases)  
- 
+
+## Hardware Requirements:
+- 1 CPU core ( 2 cores is recommended )
+- 1 GB RAM ( 4GB RAM is recommended )
+- 700 MB Space on your HDD
+
+Looking for a more lightweight GIT Package with a GitLab like UI, then check my new [Gitea Synology Package](https://github.com/jboxberger/synology-gitea-jboxberger). Gitea requires only 80MB RAM and have all basic features onboard (Web UI, Git, Issues, Wiki and more).
+
 ## New since 10.1.1
 - All-In-One Installer
 - MariaDB10 Migration
