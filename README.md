@@ -1,17 +1,3 @@
-# please use the NEW [synology-gitlab-jboxberger](https://github.com/jboxberger/synology-gitlab-jboxberger) package!
-
-[GitLab has dropped MariaDB/MySQL Support.](https://docs.gitlab.com/ce/install/requirements.html#database) The 10.2.5 is 
-the latest version working with MariaDB10. Any higher version fail to migrate/update the database schema structure. This 
-is an GitLab issue which i can not fix and GitLab will not fix because MariaDB/MySQL it's not supported anymore.  
-
-If you don't want to wait until Synology releases a updated package and if you would like to have some extra Features with
-a more frequent update sequence then you can use my GitLab PostgreSQL package [here](https://github.com/jboxberger/synology-gitlab-jboxberger).
-You can Migrate from stock Synology 9.4.4-0050 or from this 10.1.4/10.2.5 package very easily. Hope you like it.
-
-**This package will not be updated anymore and stay for legacy reasons.**   
-
----------------------------------------
-
 ## synology-gitlab
 
 This is an upgraded and improved GitLab package which uses the stock Synology Package from [Synology Repo](https://www.synology.com/de-de/dsm/packages/Docker-GitLab). 
