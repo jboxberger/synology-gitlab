@@ -1,6 +1,6 @@
 ## synology-gitlab
 
-This is an upgraded and improved GitLab package which uses the stock Synology Package from [Synology Repo](https://www.synology.com/de-de/dsm/packages/Docker-GitLab). 
+This is an upgraded and improved GitLab package which uses the stock Synology Package from [Synology Repo](https://www.synology.com/de-de/dsm/packages/Docker-GitLab) and can be installed over the original package. 
 
 **Download latest SPK**: [here](https://github.com/jboxberger/synology-gitlab/releases)  
 
@@ -11,17 +11,12 @@ This is an upgraded and improved GitLab package which uses the stock Synology Pa
 
 Looking for a more lightweight GIT Package with a GitLab like UI, then check my new [Gitea Synology Package](https://github.com/jboxberger/synology-gitea-jboxberger). Gitea requires only 80MB RAM and have all basic features onboard (Web UI, Git, Issues, Wiki and more).
 
-## New since 10.1.1
+## Additional Features
 - All-In-One Installer
-- MariaDB10 Migration
-- Backup/Restore scripts
 - restore custom ENVIRONMENT variables after update (any variable not in scripts/env_ignore)
 
-## GitLab 10.5.x
-Database Migration fails because of MariaDB ROW_FORMAT, waiting for fix.
- 
 ## Supported Architectures
-**x86 avoton bromolow cedarview braswell kvmx64 broadwell apollolake**  
+**x86_64**  
 Since i can't test all architectures i had to make a choice which i can cover or which i expect to work. If your architecture 
 is not in this list so please feel free to contact me and we can give it a try.  
 
@@ -30,52 +25,63 @@ or [here](https://www.synology.com/en-us/knowledgebase/DSM/tutorial/General/What
 
 # Backup
 ```
-# backup files will be saved in docker/backup directory
+# backup files will be saved in gitlab/backups directory usually ( /volume1/docker/gitlab/gitlab/backups ) 
 # the backup contains the config files including !PASSWORDS! be shure to keep them in an safe place!
+#
+# Parameters:
+# RAILS_ENV => we have only "production" environment so this parameter is pretty static
+# CRON=1 => Parameter supress any output. To get detailed debug information remove the parameter from command ( CRON=0 will not work )
 
-sudo ./var/packages/Docker-GitLab/scripts/backup --maria-db-root-password "<root-password>"	
+sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bundle exec rake gitlab:backup:create RAILS_ENV=production CRON=1" 
+
+# yo can make the backups readyble by your DSM user but use theis only when you knwo what you're doing and do not have any
+# security concerns
+sudo chmod g+rw /volume1/docker/gitlab/backups/*.tar
 ```
+
 # Restore
 ```
-# restoring to a mismatched GitLab Version (e.g. 10.1.4 backup file to 9.4.4 GitLab) my cause problems
-# i highly reccommend to restore only matching backup and GitLab versions.
+# restoring only works within a version. restoring a backup from version 10.1.2 to 10.1.1 or from 10.1.1 to 10.1.2 will NOT work
+# only restoring from 10.1.2 to 10.1.2 will work.
+#
+# Parameters:
+# RAILS_ENV => we have only "production" environment so this parameter is pretty static
+# BACKUP => backup name (NOT filename) file: 1544961414_2018_12_16_9.4.4_gitlab_backup.tar => backup_name: 1544961414_2018_12_16_9.4.4
   
-sudo ./var/packages/Docker-GitLab/scripts/restore --maria-db-root-password "<root-password>" --restore-file "2018-01-27-16-12-03-gitlab-10.1.4.tar.gz"
+sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bundle exec rake gitlab:backup:restore RAILS_ENV=production BACKUP=1544961414_2018_12_16_9.4.4"
 ```
 
 # Updates
 **Always backup data before update! _Please be patient during the Update process_**.   
 The first docker container boot up - after installation/update - takes some minutes because GitLab needs to migrate the 
 Database first, you can see the status in the GitLab container log (DSM docker backend). __**The Update is complete when the CPU begins to idle.**__    
- 
-#### DSM 6.1.1-15101 
-| Package Type  | Prev. Version | New Version | Status             |
-|---------------|---------------|-------------|--------------------|
-| Stock         | 8.17.4-0022   | 10.1.4      | incompatible       |
-| Stock         | 9.4.4-0024    | 10.1.4      | ok                 |
-| Stock         | 9.4.4-0050    | 10.1.4      | ok                 |
-| Old           | 9.5.2         | 10.1.4      | ok                 |
-| Old           | 10.0.2        | 10.1.4      | ok                 |
-| Old           | 10.1.1        | 10.1.4      | ok                 |
-| New           | 10.1.4        | 10.2.5      | ok                 |
-
-#### DSM 6.1.4-15217 
-| Package Type  | Prev. Version | New Version | Status             |
-|---------------|---------------|-------------|--------------------|
-| Stock         | 8.17.4-0022   | 10.1.4      | incompatible       |
-| Stock         | 9.4.4-0024    | 10.1.4      | ok                 |
-| Stock         | 9.4.4-0050    | 10.1.4      | ok                 |
-| Old           | 9.5.2         | 10.1.4      | ok                 |
-| Old           | 10.0.2        | 10.1.4      | ok                 |
-| Old           | 10.1.1        | 10.1.4      | ok                 |
-| New           | 10.1.4        | 10.2.5      | ok                 |
-| New           | 10.2.5        | 10.3.x      | DB Migrate fail    |
-| New           | 10.2.5        | 10.4.2      | DB Migrate fail    |
-| New           | 10.2.5        | 10.5.1      | DB Migrate fail    |
-| New           | 10.2.5        | 10.5.5      | DB Migrate fail    |
 
 ```
 Stock: Package directly installed from Synology		
-Old: Old modified Gitlab Package up to v10.1.1		
-New: New modified Gitlab Package from v10.1.4		
+Mod: modified Gitlab Package		
 ```
+ 
+### DSM 6.2-23739 Update 2
+
+##### Clean Install
+| Prev. Version | New Version | Status             |
+|---------------|-------------|--------------------|
+| -             | 11.0.4-0053 | ok                 |
+| -             | 11.5.1-0053 | ok                 |
+
+##### Update Stock 9.4.4-0050 to Mod
+| Prev. Version | New Version | Status             |
+|---------------|-------------|--------------------|
+| 9.4.4-0050    | 11.0.4-0053 | ok                 |
+| 9.4.4-0050    | 11.5.1-0053 | ok                 |
+
+##### Update Stock 11.0.4-0053 to Mod
+| Prev. Version | New Version | Status             |
+|---------------|-------------|--------------------|
+| 11.0.4-0053   | 11.0.4-0053 | ok                 |
+| 11.0.4-0053   | 11.5.1-0053 | ok                 |
+
+##### Update between Mod Packages
+| Prev. Version | New Version | Status             |
+|---------------|-------------|--------------------|
+| 11.0.4-0053   | 11.5.1-0053 | ok                 |
