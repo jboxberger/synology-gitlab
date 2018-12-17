@@ -85,3 +85,79 @@ Mod: modified Gitlab Package
 | Prev. Version | New Version | Status             |
 |---------------|-------------|--------------------|
 | 11.0.4-0053   | 11.5.1-0053 | ok                 |
+
+
+# Migration
+
+### from synology-gitlab-jboxberger package to this package
+Migration only works within a version. restoring a backup from version 11.5.0 to 11.5.1 or from 11.5.1 to 11.5.0 will NOT work
+  
+| Prev. Version | New Version | Status             |
+|---------------|-------------|--------------------|
+| 11.0.4-0101   | 11.0.4-0053 |       |
+| 11.4.0-0102   | 11.4.0-0053 |      |
+| 11.5.0-0102   | 11.5.0-0053 |      |
+```
+# actions
+# 1. create backup and save it from deletion 
+sudo mkdir /volume1/docker/gitlab-backup
+sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bundle exec rake gitlab:backup:create RAILS_ENV=production"
+sudo cp -p /volume1/docker/gitlab/backups/*_gitlab_backup.tar /volume1/docker/gitlab-backup
+
+# 2. install the package with the same version as the prevous package
+
+# 3. Restore the backup files and gitlab content  
+sudo cp -p /volume1/docker/gitlab-backup/*_gitlab_backup.tar /volume1/docker/gitlab/gitlab/backups 
+sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bundle exec rake gitlab:backup:restore RAILS_ENV=production BACKUP=<backup_name>"
+```
+
+### from old modified synology-gitlab package
+| Prev. Version | New Version | Status               |
+|---------------|-------------|----------------------|
+| 10.1.4        | 11.0.4-0053 | modification needed* |
+| 10.1.4        | 11.5.1-0053 | modification needed* |
+| 10.2.5        | 11.0.4-0053 | modification needed* |
+| 10.2.5        | 11.5.1-0053 | modification needed* |
+
+```
+# *modification - we need to restore the naming scheme from the stock package BEFORE the update
+
+sudo vi /var/packages/Docker-GitLab/INFO
+change the line: version="10.x.x" to version="10.1.4-0050"
+
+sudo vi /var/packages/Docker-GitLab/etc/config
+change the line: VERSION="10.x.x" to VERSION="0050"
+```
+
+### from maria_db to postgres_sql
+This is the snippet how the synology-gitlab original package converts from mariadb to postgres, just in case you need
+it otherwise. You find the db_converter.py in the .spk file, just extract it like a zip file and watch for the scripts
+folder. 
+```
+#!/bin/sh
+MYSQLDUMP_BIN="/usr/local/mariadb10/bin/mysqldump"
+DOCKER_HOST=$(ip address show docker0 | grep inet | awk '{print $2}' | cut -f1 -d/ | head -n 1)
+DB_USER="gitlab_user"
+DB_PASS="<database_password>"
+DB_NAME="gitlab"
+MYSQL_TMP="/tmp/mysql_tmp.sql"
+POSTGRESQL_TMP="/tmp/postgresql_tmp.sql"
+PREUPGRADE_CHECK_DB_CONVERT="/var/packages/Docker-GitLab/scripts/preupgrade_check_db_convert/"
+POSTGRESQL_NAME=synology_gitlab_postgresql
+
+"$MYSQLDUMP_BIN" --compatible=postgresql --default-character-set=utf8 --hex-blob --host="$host" -u "$DB_USER" --password="$DB_PASS" "$DB_NAME" > "$MYSQL_TMP"
+/bin/python "$PREUPGRADE_CHECK_DB_CONVERT/db_converter.py" "$MYSQL_TMP" "$POSTGRESQL_TMP"
+if [ "$?" -ne 0 ]; then
+	logger -p 0 "$PKG_NAME: preupgrade fail to convert db."
+	exit 1
+fi
+docker cp "$POSTGRESQL_TMP" "$POSTGRESQL_NAME":/gitlab.psql
+rm "$MYSQL_TMP" "$POSTGRESQL_TMP"
+
+docker stop synology_gitlab
+docker exec "$POSTGRESQL_NAME" psql -U "postgres" -c "DROP DATABASE IF EXISTS $DB_NAME;"
+docker exec "$POSTGRESQL_NAME" psql -U "postgres" -c "CREATE DATABASE $DB_NAME;"
+docker exec "$POSTGRESQL_NAME" psql -U "postgres" -c "GRANT ALL privileges ON DATABASE $DB_NAME TO $DB_USER;"
+docker exec "$POSTGRESQL_NAME" psql -U "$DB_USER" -v "ON_ERROR_STOP=1" -f /gitlab.psql -d "$DB_NAME"
+docker start synology_gitlab
+```
