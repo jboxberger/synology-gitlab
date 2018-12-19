@@ -24,10 +24,11 @@ spk_version=0053
 
 # https://microbadger.com/images/sameersbn/gitlab
 declare -A versions;      declare -a orders;
-versions["11.0.4"]="939"; orders+=( "11.0.4" )
-versions["11.4.0"]="712"; orders+=( "11.4.0" )
-versions["11.5.0"]="725"; orders+=( "11.5.0" )
-versions["11.5.1"]="693"; orders+=( "11.5.1" )
+#versions["11.0.4"]="939"; orders+=( "11.0.4" )
+#versions["11.4.0"]="712"; orders+=( "11.4.0" )
+#versions["11.5.0"]="725"; orders+=( "11.5.0" )
+#versions["11.5.1"]="693"; orders+=( "11.5.1" )
+versions["11.5.3"]="698"; orders+=( "11.5.3" )
 
 for i in "${!orders[@]}"
 do

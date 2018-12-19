@@ -68,24 +68,27 @@ Mod: modified Gitlab Package
 |---------------|-------------|--------------------|
 | -             | 11.0.4-0053 | ok                 |
 | -             | 11.5.1-0053 | ok                 |
+| -             | 11.5.3-0053 | ok                 |
 
 ##### Update Stock 9.4.4-0050 to Mod
 | Prev. Version | New Version | Status             |
 |---------------|-------------|--------------------|
 | 9.4.4-0050    | 11.0.4-0053 | ok                 |
 | 9.4.4-0050    | 11.5.1-0053 | ok                 |
+| 9.4.4-0050    | 11.5.3-0053 | ok                 |
 
 ##### Update Stock 11.0.4-0053 to Mod
 | Prev. Version | New Version | Status             |
 |---------------|-------------|--------------------|
 | 11.0.4-0053   | 11.0.4-0053 | ok                 |
 | 11.0.4-0053   | 11.5.1-0053 | ok                 |
+| 11.0.4-0053   | 11.5.3-0053 | ok                 |
 
 ##### Update between Mod Packages
 | Prev. Version | New Version | Status             |
 |---------------|-------------|--------------------|
 | 11.0.4-0053   | 11.5.1-0053 | ok                 |
-
+| 11.5.1-0053   | 11.5.3-0053 | ok                 |
 
 # Migration
 
@@ -94,9 +97,9 @@ Migration only works within a version. restoring a backup from version 11.5.0 to
   
 | Prev. Version | New Version | Status             |
 |---------------|-------------|--------------------|
-| 11.0.4-0101   | 11.0.4-0053 |       |
-| 11.4.0-0102   | 11.4.0-0053 |      |
-| 11.5.0-0102   | 11.5.0-0053 |      |
+| 11.0.4-0101   | 11.0.4-0053 | actions needed*    |
+| 11.4.0-0102   | 11.4.0-0053 | actions needed*    |
+| 11.5.0-0102   | 11.5.0-0053 | actions needed*    |
 ```
 # actions
 # 1. create backup and save it from deletion 
@@ -104,9 +107,10 @@ sudo mkdir /volume1/docker/gitlab-backup
 sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bundle exec rake gitlab:backup:create RAILS_ENV=production"
 sudo cp -p /volume1/docker/gitlab/backups/*_gitlab_backup.tar /volume1/docker/gitlab-backup
 
-# 2. install the package with the same version as the prevous package
+# 2. uninstall currently installed giltab package
+# 3. install the package with the same version as the prevous package
 
-# 3. Restore the backup files and gitlab content  
+# 4. Restore the backup files and gitlab content  
 sudo cp -p /volume1/docker/gitlab-backup/*_gitlab_backup.tar /volume1/docker/gitlab/gitlab/backups 
 sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bundle exec rake gitlab:backup:restore RAILS_ENV=production BACKUP=<backup_name>"
 ```
@@ -116,8 +120,11 @@ sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bund
 |---------------|-------------|----------------------|
 | 10.1.4        | 11.0.4-0053 | modification needed* |
 | 10.1.4        | 11.5.1-0053 | modification needed* |
+| 10.1.4        | 11.5.3-0053 | modification needed* |
+|----------------------------------------------------|
 | 10.2.5        | 11.0.4-0053 | modification needed* |
 | 10.2.5        | 11.5.1-0053 | modification needed* |
+| 10.2.5        | 11.5.3-0053 | modification needed* |
 
 ```
 # *modification - we need to restore the naming scheme from the stock package BEFORE the update
