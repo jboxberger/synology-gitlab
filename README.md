@@ -121,7 +121,7 @@ sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bund
 | 10.1.4        | 11.0.4-0053 | modification needed* |
 | 10.1.4        | 11.5.1-0053 | modification needed* |
 | 10.1.4        | 11.5.3-0053 | modification needed* |
-|----------------------------------------------------|
+|---------------|-------------|----------------------|
 | 10.2.5        | 11.0.4-0053 | modification needed* |
 | 10.2.5        | 11.5.1-0053 | modification needed* |
 | 10.2.5        | 11.5.3-0053 | modification needed* |
