@@ -134,7 +134,7 @@ sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bund
 # *modification - we need to restore the naming scheme from the stock package BEFORE the update
 
 sudo vi /var/packages/Docker-GitLab/INFO
-change the line: version="10.x.x" to version="10.1.4-0050"
+change the line: version="10.x.x" to version="10.x.x-0050"
 
 sudo vi /var/packages/Docker-GitLab/etc/config
 change the line: VERSION="10.x.x" to VERSION="0050"
