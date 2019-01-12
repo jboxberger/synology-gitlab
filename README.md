@@ -132,6 +132,7 @@ Migration only works within a version. restoring a backup from version 11.5.0 to
 
 # 6. Test your environment as carefull as possible. Take time for testing. 
 # Depending on your testing result plseas continue with 6.1 or 6.2 
+# If you get a 422 GitLab error, please clear the whole broswer cache including data and cookies.
 
 # 6.1 Oh...Oh...! Something is broken... Restore11!
 # Uninstall currently installed synology-gitlab package (check delete database)
