@@ -103,13 +103,13 @@ Mod: modified Gitlab Package
 ### from synology-gitlab-jboxberger package to this package
 Migration only works within a version. restoring a backup from version 11.5.0 to 11.5.1 or from 11.5.1 to 11.5.0 will NOT work
   
-| Prev. Version | New Version | Status             |
-|---------------|-------------|--------------------|
-| 11.0.4-0101   | 11.0.4-0053 | actions needed*    |
-| 11.4.0-0102   | 11.4.0-0053 | actions needed*    |
-| 11.5.0-0102   | 11.5.0-0053 | actions needed*    |
+| Prev. Version | New Version | Status                 |
+|---------------|-------------|------------------------|
+| 11.0.4-0101   | 11.0.4-0053 | full migration needed* |
+| 11.4.0-0102   | 11.4.0-0053 | full migration needed* |
+| 11.5.0-0102   | 11.5.0-0053 | fullmigration needed*  |
 ```
-# actions
+# migration synology-gitlab-jboxberger to synology-gitlab
 
 # 1. create backup and save it from deletion 
   sudo mkdir /volume1/docker/gitlab-backup
