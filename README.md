@@ -110,17 +110,41 @@ Migration only works within a version. restoring a backup from version 11.5.0 to
 | 11.5.0-0102   | 11.5.0-0053 | actions needed*    |
 ```
 # actions
+
 # 1. create backup and save it from deletion 
-sudo mkdir /volume1/docker/gitlab-backup
-sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bundle exec rake gitlab:backup:create RAILS_ENV=production"
-sudo cp -p /volume1/docker/gitlab/backups/*_gitlab_backup.tar /volume1/docker/gitlab-backup
+  sudo mkdir /volume1/docker/gitlab-backup
+  sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bundle exec rake gitlab:backup:create RAILS_ENV=production"
+  sudo cp -p /volume1/docker/gitlab/backups/*_gitlab_backup.tar /volume1/docker/gitlab-backup
 
-# 2. uninstall currently installed giltab package
-# 3. install the package with the same version as the prevous package
+# 2. uninstall currently installed giltab package (do *NOT* Remove GitLab data) - save database password (required for rollback).
 
-# 4. Restore the backup files and gitlab content  
-sudo cp -p /volume1/docker/gitlab-backup/*_gitlab_backup.tar /volume1/docker/gitlab/gitlab/backups 
-sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bundle exec rake gitlab:backup:restore RAILS_ENV=production BACKUP=<backup_name>"
+# 3. move old gitlab data out of the way.
+  sudo mv /volume1/docker/gitlab /volume1/docker/gitlab.backup
+  sudo mv /volume1/docker/gitlab-db /volume1/docker/gitlab-db.backup
+
+# 4. install the synology-gitlab package with the same version as the prevous synology-gitlab-jboxberger package.
+
+# 5. Restore the backup files and gitlab content 
+  sudo cp -p /volume1/docker/gitlab-backup/*_gitlab_backup.tar /volume1/docker/gitlab/gitlab/backups 
+
+# (file_name)'1547251748_2019_01_12_11.5.0_gitlab_backup.tar' => <backup_name>'1547251748_2019_01_12_11.5.0'
+  sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bundle exec rake gitlab:backup:restore RAILS_ENV=production BACKUP=<backup_name>"
+
+# 6. Test your environment as carefull as possible. Take time for testing. 
+# Depending on your testing result plseas continue with 6.1 or 6.2 
+
+# 6.1 Oh...Oh...! Something is broken... Restore11!
+# Uninstall currently installed synology-gitlab package (check delete database)
+  sudo mv /volume1/docker/gitlab.backup /volume1/docker/gitlab
+  sudo mv /volume1/docker/gitlab-db.backup /volume1/docker/gitlab-db
+# Now install the synology-gitlab-jboxberger (same version as installed prevously). 
+#   Check "Use existing data"!
+#   Use the same database passowrd you have used on the prevous installation!
+
+# 6.2 Yay it works!!! I've backed everything up in case i miss something later! Now Cleanup.
+  sudo rm -rf /volume1/docker/gitlab-backup
+  sudo rm -rf /volume1/docker/gitlab.backup
+  sudo rm -rf /volume1/docker/gitlab-db.backup
 ```
 
 ### from old modified synology-gitlab package
