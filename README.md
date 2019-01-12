@@ -146,7 +146,7 @@ Migration only works within a version. restoring a backup from version 11.5.0 to
   sudo rm -rf /volume1/docker/gitlab.backup
   sudo rm -rf /volume1/docker/gitlab-db.backup
   
-#######################################################################################################################################
+###################################################################################################################
 If shit hits the fan! Call 911 or write me an email. I try to help as good i can. 
 ```
 
