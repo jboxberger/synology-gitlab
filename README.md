@@ -71,6 +71,7 @@ Mod: modified Gitlab Package
 | -             | 11.5.3-0053 | ok                 |
 | -             | 11.6.0-0053 | ok                 |
 | -             | 11.6.2-0053 | ok                 |
+| -             | 11.6.5-0053 | ok                 |
 
 ##### Update Stock 9.4.4-0050 to Mod
 | Prev. Version | New Version | Status             |
@@ -80,6 +81,7 @@ Mod: modified Gitlab Package
 | 9.4.4-0050    | 11.5.3-0053 | ok                 |
 | 9.4.4-0050    | 11.6.0-0053 | ok                 |
 | 9.4.4-0050    | 11.6.2-0053 | ok                 |
+| 9.4.4-0050    | 11.6.5-0053 | ok                 |
 
 ##### Update Stock 11.0.4-0053 to Mod
 | Prev. Version | New Version | Status             |
@@ -89,6 +91,7 @@ Mod: modified Gitlab Package
 | 11.0.4-0053   | 11.5.3-0053 | ok                 |
 | 11.0.4-0053   | 11.6.0-0053 | ok                 |
 | 11.0.4-0053   | 11.6.2-0053 | ok                 |
+| 11.0.4-0053   | 11.6.5-0053 | ok                 |
 
 ##### Update between Mod Packages
 | Prev. Version | New Version | Status             |
@@ -97,6 +100,7 @@ Mod: modified Gitlab Package
 | 11.5.1-0053   | 11.5.3-0053 | ok                 |
 | 11.5.3-0053   | 11.6.0-0053 | ok                 |
 | 11.6.0-0053   | 11.6.2-0053 | ok                 |
+| 11.6.2-0053   | 11.6.5-0053 | ok                 |
 
 # Migration
 
