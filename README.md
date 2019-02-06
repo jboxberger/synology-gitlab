@@ -66,7 +66,57 @@ Mod: modified Gitlab Package
 <details><summary>Clean Install</summary>
 <p>
 
-
+<table>
+<thead>
+<tr>
+<th>Prev. Version</th>
+<th>New Version</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>11.0.4-0053</td>
+<td>ok</td>
+</tr>
+<tr>
+<td>-</td>
+<td>11.5.1-0053</td>
+<td>ok</td>
+</tr>
+<tr>
+<td>-</td>
+<td>11.5.3-0053</td>
+<td>ok</td>
+</tr>
+<tr>
+<td>-</td>
+<td>11.6.0-0053</td>
+<td>ok</td>
+</tr>
+<tr>
+<td>-</td>
+<td>11.6.2-0053</td>
+<td>ok</td>
+</tr>
+<tr>
+<td>-</td>
+<td>11.6.5-0053</td>
+<td>ok</td>
+</tr>
+<tr>
+<td>-</td>
+<td>11.7.0-0053</td>
+<td>ok</td>
+</tr>
+<tr>
+<td>-</td>
+<td>11.7.3-0053</td>
+<td>ok</td>
+</tr>
+</tbody>
+</table>
 
 </p>
 </details>
