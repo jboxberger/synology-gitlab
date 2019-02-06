@@ -63,7 +63,8 @@ Mod: modified Gitlab Package
  
 ### DSM 6.2-23739 Update 2
 
-##### Clean Install
+<details><summary>Clean Install</summary>
+<p>
 | Prev. Version | New Version | Status             |
 |---------------|-------------|--------------------|
 | -             | 11.0.4-0053 | ok                 |
@@ -74,6 +75,8 @@ Mod: modified Gitlab Package
 | -             | 11.6.5-0053 | ok                 |
 | -             | 11.7.0-0053 | ok                 |
 | -             | 11.7.3-0053 | ok                 |
+</p>
+</details>
 
 ##### Update Stock 9.4.4-0050 to Mod
 | Prev. Version | New Version | Status             |
