@@ -66,6 +66,11 @@ Mod: modified Gitlab Package
 <details><summary>Clean Install</summary>
 <p>
 
+
+
+</p>
+</details>
+
 | Prev. Version | New Version | Status             |
 |---------------|-------------|--------------------|
 | -             | 11.0.4-0053 | ok                 |
@@ -76,9 +81,6 @@ Mod: modified Gitlab Package
 | -             | 11.6.5-0053 | ok                 |
 | -             | 11.7.0-0053 | ok                 |
 | -             | 11.7.3-0053 | ok                 |
-
-</p>
-</details>
 
 ##### Update Stock 9.4.4-0050 to Mod
 | Prev. Version | New Version | Status             |
