@@ -123,7 +123,7 @@ Migration only works within a version. restoring a backup from version 11.5.0 to
 |---------------|-------------|------------------------|
 | 11.0.4-0101   | 11.0.4-0053 | full migration needed* |
 | 11.4.0-0102   | 11.4.0-0053 | full migration needed* |
-| 11.5.0-0102   | 11.5.0-0053 | full migration needed* |
+| 11.5.1-0102   | 11.5.1-0053 | full migration needed* |
 ```
 # migration synology-gitlab-jboxberger to synology-gitlab
 
