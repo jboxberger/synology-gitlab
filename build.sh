@@ -1,7 +1,7 @@
 #!/bin/bash
 
 IS_DEBUG=0
-spk_version=0053
+spk_version=0054
 
 ########################################################################################################################
 # FUNCTIONS
@@ -98,7 +98,7 @@ redis_target_package_name_escaped=$(echo "$redis_target_package_name" | tr '/' '
 ########################################################################################################################
 # VARIABLES
 ########################################################################################################################
-base_package_url='https://usdl.synology.com/download/Package/spk/Docker-GitLab/11.0.4-0053/Docker-GitLab-x64-11.0.4-0053.spk'
+base_package_url='https://usdl.synology.com/download/Package/spk/Docker-GitLab/11.0.4-0054/Docker-GitLab-x64-11.0.4-0054.spk'
 base_package_filename="${base_package_url##*/}"
 base_package_name="${base_package_filename%.*}"
 base_package_version=$( echo $base_package_name | grep -P '([0-9]{1,2}[.][0-9]{1,2}[.]{0,1}[0-9]{0,2})' -o )
@@ -139,7 +139,8 @@ if ! [ -f $download_dir/$base_package_filename ]; then
 fi
 
 tar xf "$download_dir/$base_package_filename" -C $project_dir
-tar -zxf $project_dir/package.tgz -C $project_dir/package
+tar xf $project_dir/package.tgz -C $project_dir/package
+
 rm $project_dir/package.tgz
 rm $project_dir/syno_signature.asc
 
