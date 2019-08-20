@@ -106,6 +106,7 @@ Mod: modified Gitlab Package
 | 9.4.4-0050    | 12.0.3-0053  | ok                 |
 | 9.4.4-0050    | 12.0.3-0054  | ok                 |
 | 9.4.4-0050    | 12.1.6-0054  | FAIL*              |
+
 *Your current database version is too old to be migrated. You should upgrade to GitLab 11.11.0 before moving to this version. Please see https://docs.gitlab.com/ee/policy/maintenance.html#upgrade-recommendations
 
 ##### Update Stock 11.0.4-0053 to Mod
@@ -128,7 +129,8 @@ Mod: modified Gitlab Package
 | 11.0.4-0053   | 12.0.0-0053  | ok                 |
 | 11.0.4-0053   | 12.0.3-0053  | ok                 |
 | 11.0.4-0053   | 12.0.3-0054  | ok                 |
-| 11.0.4-0053   | 12.1.6-0054  | FAIL*               |
+| 11.0.4-0053   | 12.1.6-0054  | FAIL*              |
+
 *Your current database version is too old to be migrated. You should upgrade to GitLab 11.11.0 before moving to this version. Please see https://docs.gitlab.com/ee/policy/maintenance.html#upgrade-recommendations
 
 ##### Update 11.11.0-0053 to New Package
