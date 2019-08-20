@@ -2,7 +2,7 @@
 
 This is an upgraded and improved GitLab package which uses the stock Synology Package from [Synology Repo](https://www.synology.com/de-de/dsm/packages/Docker-GitLab) and can be installed over the original package. 
 
-**Download Gitlab 12.0.3-0054 SPK**: [here](https://github.com/jboxberger/synology-gitlab/releases)  
+**Download Gitlab 12.1.6-0054 SPK**: [here](https://github.com/jboxberger/synology-gitlab/releases)  
 
 ## Hardware Requirements:
 - 1 CPU core ( 2 cores is recommended )
@@ -83,6 +83,7 @@ Mod: modified Gitlab Package
 | -             | 12.0.0-0053  | ok                 |
 | -             | 12.0.3-0053  | ok                 |
 | -             | 12.0.3-0054  | ok                 |
+| -             | 12.1.6-0054  | ok                 |
 
 ##### Update Stock 9.4.4-0050 to Mod
 | Prev. Version | New Version  | Status             |
@@ -104,6 +105,8 @@ Mod: modified Gitlab Package
 | 9.4.4-0050    | 12.0.0-0053  | ok                 |
 | 9.4.4-0050    | 12.0.3-0053  | ok                 |
 | 9.4.4-0050    | 12.0.3-0054  | ok                 |
+| 9.4.4-0050    | 12.1.6-0054  | FAIL*              |
+*Your current database version is too old to be migrated. You should upgrade to GitLab 11.11.0 before moving to this version. Please see https://docs.gitlab.com/ee/policy/maintenance.html#upgrade-recommendations
 
 ##### Update Stock 11.0.4-0053 to Mod
 | Prev. Version | New Version  | Status             |
@@ -125,6 +128,13 @@ Mod: modified Gitlab Package
 | 11.0.4-0053   | 12.0.0-0053  | ok                 |
 | 11.0.4-0053   | 12.0.3-0053  | ok                 |
 | 11.0.4-0053   | 12.0.3-0054  | ok                 |
+| 11.0.4-0053   | 12.1.6-0054  | FAIL*               |
+*Your current database version is too old to be migrated. You should upgrade to GitLab 11.11.0 before moving to this version. Please see https://docs.gitlab.com/ee/policy/maintenance.html#upgrade-recommendations
+
+##### Update 11.11.0-0053 to New Package
+| Prev. Version | New Version  | Status             |
+|---------------|--------------|--------------------|
+| 11.11.0-0053  | 12.1.6-0054  | ok                 |
 
 ##### Update between Mod Packages
 | Prev. Version | New Version  | Status             |
@@ -145,6 +155,7 @@ Mod: modified Gitlab Package
 | 11.11.0-0053  | 12.0.0-0053  | ok                 |
 | 12.0.0-0053   | 12.0.3-0053  | ok                 |
 | 12.0.3-0053   | 12.0.3-0054  | ok                 |
+| 12.0.3-0054   | 12.1.6-0054  | ok                 |
 
 # Migration
 
