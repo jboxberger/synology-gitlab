@@ -24,30 +24,11 @@ spk_version=0054
 
 # https://microbadger.com/images/sameersbn/gitlab
 declare -A versions;      declare -a orders;
-#versions["11.0.4"]="939"; orders+=( "11.0.4" )
-#versions["11.4.0"]="712"; orders+=( "11.4.0" )
-#versions["11.5.0"]="725"; orders+=( "11.5.0" )
-#versions["11.5.1"]="729"; orders+=( "11.5.1" )
-#versions["11.5.3"]="732"; orders+=( "11.5.3" )
-#versions["11.6.0"]="780"; orders+=( "11.6.0" )
-#versions["11.6.2"]="777"; orders+=( "11.6.2" )
-#versions["11.6.5"]="778"; orders+=( "11.6.5" )
-#versions["11.7.0"]="782"; orders+=( "11.7.0" )
-#versions["11.7.3"]="783"; orders+=( "11.7.3" )
-#versions["11.7.5"]="782"; orders+=( "11.7.5" )
-#versions["11.8.0"]="808"; orders+=( "11.8.0" )
-#versions["11.8.2"]="808"; orders+=( "11.8.2" )
-#versions["11.8.3"]="808"; orders+=( "11.8.3" )
-#versions["11.9.5"]="838"; orders+=( "11.9.5" )
-#versions["11.9.8"]="842"; orders+=( "11.9.8" )
-#versions["11.10.4"]="855"; orders+=( "11.10.4" )
 #versions["11.11.0"]="899"; orders+=( "11.11.0" )
-#versions["12.0.0"]="954"; orders+=( "12.0.0" )
-#versions["12.0.3"]="954"; orders+=( "12.0.3" )
-#versions["12.1.6"]="947"; orders+=( "12.1.6" )
 #versions["12.2.5"]="909"; orders+=( "12.2.5" )
 #versions["12.3.3"]="955"; orders+=( "12.3.3" )
-versions["12.3.5"]="955"; orders+=( "12.3.5" )
+#versions["12.3.5"]="955"; orders+=( "12.3.5" )
+versions["12.4.1"]="991"; orders+=( "12.4.1" )
 
 for i in "${!orders[@]}"
 do
