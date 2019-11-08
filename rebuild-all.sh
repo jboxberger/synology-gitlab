@@ -20,7 +20,7 @@ done
 gitlab_package_name="sameersbn/gitlab"
 postgresql_package_name="sameersbn/postgresql"
 redis_package_name="redis"
-spk_version=0054
+spk_version=0055
 
 # https://microbadger.com/images/sameersbn/gitlab
 declare -A versions;      declare -a orders;
@@ -41,7 +41,7 @@ do
     postgresql_size="76"
     postgresql_package_fqn=$postgresql_package_name:$postgresql_version
 
-    redis_version="3.2.6"
+    redis_version="4.0.14"
     redis_size="29"
     redis_package_fqn=$redis_package_name:$redis_version
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 IS_DEBUG=0
-spk_version=0054
+spk_version=0055
 
 ########################################################################################################################
 # FUNCTIONS
@@ -27,13 +27,13 @@ fi
 ########################################################################################################################
 # DEFAULT PARAMETERS
 ########################################################################################################################
-gitlab_target_package_fqn="sameersbn/gitlab:11.0.4"
-gitlab_target_package_download_size=896
+gitlab_target_package_fqn="sameersbn/gitlab:11.0.8"
+gitlab_target_package_download_size=859
 
 postgresql_target_package_fqn="sameersbn/postgresql:10"
 postgresql_target_package_download_size=95
 
-redis_target_package_fqn="redis:3.2.6"
+redis_target_package_fqn="redis:4.0.14"
 redis_target_package_download_size=29
 
 gitlab_stock_package_name="Docker-GitLab"
@@ -98,7 +98,7 @@ redis_target_package_name_escaped=$(echo "$redis_target_package_name" | tr '/' '
 ########################################################################################################################
 # VARIABLES
 ########################################################################################################################
-base_package_url='https://usdl.synology.com/download/Package/spk/Docker-GitLab/11.0.4-0054/Docker-GitLab-x64-11.0.4-0054.spk'
+base_package_url='https://usdl.synology.com/download/Package/spk/Docker-GitLab/11.11.8-0055/Docker-GitLab-x64-11.11.8-0055.spk'
 base_package_filename="${base_package_url##*/}"
 base_package_name="${base_package_filename%.*}"
 base_package_version=$( echo $base_package_name | grep -P '([0-9]{1,2}[.][0-9]{1,2}[.]{0,1}[0-9]{0,2})' -o )
