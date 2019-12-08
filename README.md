@@ -90,6 +90,7 @@ Mod: modified Gitlab Package
 | -             | 12.4.1-0054  | ok                 |
 | -             | 12.4.2-0054  | ok                 |
 | -             | 12.4.2-0055  | ok                 |
+| -             | 12.5.2-0055  | ok                 |
 
 ##### Update Stock 9.4.4-0050 to Mod
 | Prev. Version | New Version  | Status             |
@@ -153,7 +154,13 @@ Mod: modified Gitlab Package
 | 11.11.0-0053  | 12.4.1-0054  | ok                 |
 | 11.11.0-0053  | 12.4.2-0054  | ok                 |
 | 11.11.0-0053  | 12.4.2-0055  | ok                 |
+| 11.11.0-0053  | 12.5.2-0055  | ok                 |
+
+##### Update 11.11.8-0055 to New Package
+| Prev. Version | New Version  | Status             |
+|---------------|--------------|--------------------|
 | 11.11.8-0055  | 12.4.2-0055  | ok                 |
+| 11.11.8-0055  | 12.5.2-0055  | ok                 |
 
 ##### Update between Mod Packages
 | Prev. Version | New Version  | Status             |
@@ -181,6 +188,7 @@ Mod: modified Gitlab Package
 | 12.3.5-0054   | 12.4.1-0054  | ok                 |
 | 12.4.1-0054   | 12.4.2-0054  | ok                 |
 | 12.4.2-0054   | 12.4.2-0055  | ok                 |
+| 12.4.2-0055   | 12.5.2-0055  | ok                 |
 
 # Migration
 
