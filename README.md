@@ -1,8 +1,8 @@
 ## synology-gitlab
 
-This is an upgraded and improved GitLab package which uses the stock Synology Package from [Synology Repo](https://www.synology.com/de-de/dsm/packages/Docker-GitLab) and can be installed over the original package. 
+This is an upgraded and improved GitLab package which uses the stock Synology Package from [Synology Repo](https://www.synology.com/de-de/dsm/packages/Docker-GitLab) and can be installed over the original package.
 
-**Download Gitlab 12.5.2-0055 SPK**: [here](https://github.com/jboxberger/synology-gitlab/releases)  
+**Download Gitlab 12.5.5-0055 SPK**: [here](https://github.com/jboxberger/synology-gitlab/releases)
 
 ## Hardware Requirements:
 - 1 CPU core ( 2 cores is recommended )
@@ -16,23 +16,23 @@ Looking for a more lightweight GIT Package with a GitLab like UI, then check my 
 - restore custom ENVIRONMENT variables after update (any variable not in scripts/env_ignore)
 
 ## Supported Architectures
-**x86_64**  
-Since i can't test all architectures i had to make a choice which i can cover or which i expect to work. If your architecture 
-is not in this list so please feel free to contact me and we can give it a try.  
+**x86_64**
+Since i can't test all architectures i had to make a choice which i can cover or which i expect to work. If your architecture
+is not in this list so please feel free to contact me and we can give it a try.
 
-You can check the architecture of your device [here](https://github.com/SynoCommunity/spksrc/wiki/Architecture-per-Synology-model) 
+You can check the architecture of your device [here](https://github.com/SynoCommunity/spksrc/wiki/Architecture-per-Synology-model)
 or [here](https://www.synology.com/en-us/knowledgebase/DSM/tutorial/General/What_kind_of_CPU_does_my_NAS_have).
 
 # Backup
 ```
-# backup files will be saved in gitlab/backups directory usually ( /volume1/docker/gitlab/gitlab/backups ) 
+# backup files will be saved in gitlab/backups directory usually ( /volume1/docker/gitlab/gitlab/backups )
 # the backup contains the config files including !PASSWORDS! be shure to keep them in an safe place!
 #
 # Parameters:
 # RAILS_ENV => we have only "production" environment so this parameter is pretty static
 # CRON=1 => Parameter supress any output. To get detailed debug information remove the parameter from command ( CRON=0 will not work )
 
-sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bundle exec rake gitlab:backup:create RAILS_ENV=production CRON=1" 
+sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bundle exec rake gitlab:backup:create RAILS_ENV=production CRON=1"
 
 # yo can make the backups readyble by your DSM user but use theis only when you knwo what you're doing and do not have any
 # security concerns
@@ -47,20 +47,20 @@ sudo chmod g+rw /volume1/docker/gitlab/backups/*.tar
 # Parameters:
 # RAILS_ENV => we have only "production" environment so this parameter is pretty static
 # BACKUP => backup name (NOT filename) file: 1544961414_2018_12_16_9.4.4_gitlab_backup.tar => backup_name: 1544961414_2018_12_16_9.4.4
-  
+
 sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bundle exec rake gitlab:backup:restore RAILS_ENV=production BACKUP=1544961414_2018_12_16_9.4.4"
 ```
 
 # Updates
-**Always backup data before update! _Please be patient during the Update process_**.   
-The first docker container boot up - after installation/update - takes some minutes because GitLab needs to migrate the 
-Database first, you can see the status in the GitLab container log (DSM docker backend). __**The Update is complete when the CPU begins to idle.**__    
+**Always backup data before update! _Please be patient during the Update process_**.
+The first docker container boot up - after installation/update - takes some minutes because GitLab needs to migrate the
+Database first, you can see the status in the GitLab container log (DSM docker backend). __**The Update is complete when the CPU begins to idle.**__
 
 ```
-Stock: Package directly installed from Synology		
-Mod: modified Gitlab Package		
+Stock: Package directly installed from Synology
+Mod: modified Gitlab Package
 ```
- 
+
 ### DSM 6.2-23739 Update 2
 
 ##### Clean Install
@@ -91,6 +91,7 @@ Mod: modified Gitlab Package
 | -             | 12.4.2-0054  | ok                 |
 | -             | 12.4.2-0055  | ok                 |
 | -             | 12.5.2-0055  | ok                 |
+| -             | 12.5.5-0055  | ok                 |
 
 ##### Update Stock 9.4.4-0050 to Mod
 | Prev. Version | New Version  | Status             |
@@ -155,12 +156,14 @@ Mod: modified Gitlab Package
 | 11.11.0-0053  | 12.4.2-0054  | ok                 |
 | 11.11.0-0053  | 12.4.2-0055  | ok                 |
 | 11.11.0-0053  | 12.5.2-0055  | ok                 |
+| 11.11.0-0053  | 12.5.5-0055  | ok                 |
 
 ##### Update 11.11.8-0055 to New Package
 | Prev. Version | New Version  | Status             |
 |---------------|--------------|--------------------|
 | 11.11.8-0055  | 12.4.2-0055  | ok                 |
 | 11.11.8-0055  | 12.5.2-0055  | ok                 |
+| 11.11.8-0055  | 12.5.5-0055  | ok                 |
 
 ##### Update between Mod Packages
 | Prev. Version | New Version  | Status             |
@@ -189,12 +192,13 @@ Mod: modified Gitlab Package
 | 12.4.1-0054   | 12.4.2-0054  | ok                 |
 | 12.4.2-0054   | 12.4.2-0055  | ok                 |
 | 12.4.2-0055   | 12.5.2-0055  | ok                 |
+| 12.5.2-0055   | 12.5.5-0055  | ok                 |
 
 # Migration
 
 ### from synology-gitlab-jboxberger package to this package
 Migration only works within a version. restoring a backup from version 11.5.0 to 11.5.1 or from 11.5.1 to 11.5.0 will NOT work
-  
+
 | Prev. Version | New Version | Status                 |
 |---------------|-------------|------------------------|
 | 11.0.4-0101   | 11.0.4-0053 | full migration needed* |
@@ -203,7 +207,7 @@ Migration only works within a version. restoring a backup from version 11.5.0 to
 ```
 # migration synology-gitlab-jboxberger to synology-gitlab
 
-# 1. create backup and save it from deletion 
+# 1. create backup and save it from deletion
   sudo mkdir /volume1/docker/gitlab-backup
   sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bundle exec rake gitlab:backup:create RAILS_ENV=production"
   sudo cp -p /volume1/docker/gitlab/backups/*_gitlab_backup.tar /volume1/docker/gitlab-backup
@@ -216,21 +220,21 @@ Migration only works within a version. restoring a backup from version 11.5.0 to
 
 # 4. install the synology-gitlab package with the same version as the prevous synology-gitlab-jboxberger package.
 
-# 5. Restore the backup files and gitlab content 
-  sudo cp -p /volume1/docker/gitlab-backup/*_gitlab_backup.tar /volume1/docker/gitlab/gitlab/backups 
+# 5. Restore the backup files and gitlab content
+  sudo cp -p /volume1/docker/gitlab-backup/*_gitlab_backup.tar /volume1/docker/gitlab/gitlab/backups
 
 # (file_name)'1547251748_2019_01_12_11.5.0_gitlab_backup.tar' => <backup_name>'1547251748_2019_01_12_11.5.0'
   sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bundle exec rake gitlab:backup:restore RAILS_ENV=production BACKUP=<backup_name>"
 
-# 6. Test your environment as carefull as possible. Take time for testing. 
-# Depending on your testing result plseas continue with 6.1 or 6.2 
+# 6. Test your environment as carefull as possible. Take time for testing.
+# Depending on your testing result plseas continue with 6.1 or 6.2
 # If you get a 422 GitLab error, please clear the whole broswer cache including data and cookies.
 
 # 6.1 Oh...Oh...! Something is broken... Restore11!
 # Uninstall currently installed synology-gitlab package (check delete database)
   sudo mv /volume1/docker/gitlab.backup /volume1/docker/gitlab
   sudo mv /volume1/docker/gitlab-db.backup /volume1/docker/gitlab-db
-# Now install the synology-gitlab-jboxberger (same version as installed prevously). 
+# Now install the synology-gitlab-jboxberger (same version as installed prevously).
 #   Check "Use existing data"!
 #   Use the same database passowrd you have used on the prevous installation!
 
@@ -238,9 +242,9 @@ Migration only works within a version. restoring a backup from version 11.5.0 to
   sudo rm -rf /volume1/docker/gitlab-backup
   sudo rm -rf /volume1/docker/gitlab.backup
   sudo rm -rf /volume1/docker/gitlab-db.backup
-  
+
 ###################################################################################################################
-If shit hits the fan! Call 911 or write me an email. I try to help as good i can. 
+If shit hits the fan! Call 911 or write me an email. I try to help as good i can.
 ```
 
 ### from old modified synology-gitlab package
@@ -267,7 +271,7 @@ change the line: VERSION="10.x.x" to VERSION="0050"
 ### from maria_db to postgres_sql
 This is the snippet how the synology-gitlab original package converts from mariadb to postgres, just in case you need
 it otherwise. You find the db_converter.py in the .spk file, just extract it like a zip file and watch for the scripts
-folder. 
+folder.
 ```
 #!/bin/sh
 MYSQLDUMP_BIN="/usr/local/mariadb10/bin/mysqldump"

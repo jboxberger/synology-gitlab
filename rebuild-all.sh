@@ -29,7 +29,8 @@ declare -A versions;      declare -a orders;
 #versions["12.3.3"]="955"; orders+=( "12.3.3" )
 #versions["12.3.5"]="955"; orders+=( "12.3.5" )
 #versions["12.4.1"]="991"; orders+=( "12.4.1" )
-versions["12.5.2"]="1003"; orders+=( "12.5.2" )
+#versions["12.5.2"]="1003"; orders+=( "12.5.2" )
+versions["12.5.5"]="1005"; orders+=( "12.5.5" )
 
 for i in "${!orders[@]}"
 do
@@ -46,7 +47,7 @@ do
     redis_package_fqn=$redis_package_name:$redis_version
 
     echo "building $gitlab_package_fqn ("$gitlab_size"MB) with $postgresql_package_fqn ("$postgresql_size"MB), $redis_package_fqn ("$redis_size"MB)"
-    ./build.sh --gitlab-fqn=$gitlab_package_fqn --gitlab-download-size=$gitlab_size \
+    sudo ./build.sh --gitlab-fqn=$gitlab_package_fqn --gitlab-download-size=$gitlab_size \
        --postgresql-fqn=$postgresql_package_fqn --postgresql-download-size=$postgresql_size \
        --redis-fqn=$redis_package_fqn --redis-download-size=$redis_size \
        --spk-version=$spk_version \
