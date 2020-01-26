@@ -2,7 +2,7 @@
 
 This is an upgraded and improved GitLab package which uses the stock Synology Package from [Synology Repo](https://www.synology.com/de-de/dsm/packages/Docker-GitLab) and can be installed over the original package.
 
-**Download Gitlab 12.5.5-0055 SPK**: [here](https://github.com/jboxberger/synology-gitlab/releases)
+**Download Gitlab 12.6.4-0055 SPK**: [here](https://github.com/jboxberger/synology-gitlab/releases)
 
 ## Hardware Requirements:
 - 1 CPU core ( 2 cores is recommended )
@@ -92,6 +92,7 @@ Mod: modified Gitlab Package
 | -             | 12.4.2-0055  | ok                 |
 | -             | 12.5.2-0055  | ok                 |
 | -             | 12.5.5-0055  | ok                 |
+| -             | 12.6.4-0055  | ok                 |
 
 ##### Update Stock 9.4.4-0050 to Mod
 | Prev. Version | New Version  | Status             |
@@ -157,6 +158,7 @@ Mod: modified Gitlab Package
 | 11.11.0-0053  | 12.4.2-0055  | ok                 |
 | 11.11.0-0053  | 12.5.2-0055  | ok                 |
 | 11.11.0-0053  | 12.5.5-0055  | ok                 |
+| 11.11.0-0053  | 12.6.4-0055  | ok                 |
 
 ##### Update 11.11.8-0055 to New Package
 | Prev. Version | New Version  | Status             |
@@ -164,6 +166,7 @@ Mod: modified Gitlab Package
 | 11.11.8-0055  | 12.4.2-0055  | ok                 |
 | 11.11.8-0055  | 12.5.2-0055  | ok                 |
 | 11.11.8-0055  | 12.5.5-0055  | ok                 |
+| 11.11.8-0055  | 12.6.4-0055  | ok                 |
 
 ##### Update between Mod Packages
 | Prev. Version | New Version  | Status             |
@@ -193,6 +196,7 @@ Mod: modified Gitlab Package
 | 12.4.2-0054   | 12.4.2-0055  | ok                 |
 | 12.4.2-0055   | 12.5.2-0055  | ok                 |
 | 12.5.2-0055   | 12.5.5-0055  | ok                 |
+| 12.5.5-0055   | 12.6.4-0055  | ok                 |
 
 # Migration
 
