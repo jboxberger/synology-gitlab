@@ -308,3 +308,39 @@ docker exec "$POSTGRESQL_NAME" psql -U "postgres" -c "GRANT ALL privileges ON DA
 docker exec "$POSTGRESQL_NAME" psql -U "$DB_USER" -v "ON_ERROR_STOP=1" -f /gitlab.psql -d "$DB_NAME"
 docker start synology_gitlab
 ```
+
+## Build instructions
+```
+################################################################################################################
+# Make shure docker is already installed and runnig
+# All in One Package: The docker image is in the .spk. This leads to a much bigger .spk file but on the other
+#                     hand you avoid all possible issues during docker pull and this package could be installed
+#                     offline. Harder to build but gives a more stable update process.
+# On Demand Package : (not recommended) Docker image is not in the .spk file an will be pulled during spk
+#                     installation. The benefit here is a smaller package size and easy to build .spk - May
+#                     cause problems during installtaion when the docker image pull not working properly or
+#                     connection breaks down. This may cause a half installed Package which should be cleaned
+#                     up and backup properly to be able to re-install.
+################################################################################################################
+
+# All in One Package
+----------------------------------------------------------------------------------------------------------------
+# 1) export the needed docker image version
+bash tools/save-docker-image.sh --image="sameersbn/gitlab:12.7.5" --target-dir=./docker
+
+# 2) Execute all steps from 'On Demand Package'. The build script will automatically detect the exported image
+#    in the docker directory and include it in the .spk
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# On Demand Package (docker image will be pulled during spk installation)
+----------------------------------------------------------------------------------------------------------------
+# 1) add an new line (or modify existing) in the rebuild-all.sh with the desired version
+# the value of '1010' is just the expected container size in MB for Synology installer progressbar.
+versions["12.7.5"]="1010"; orders+=( "12.7.5" )
+
+# 2) execute the rebuild-all.sh script (required packages will be installed automatically)
+bash rebuild-all.sh
+
+# you will find the new .spk in the folder build/<version>/
+```
