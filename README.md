@@ -316,9 +316,9 @@ docker start synology_gitlab
 # All in One Package: The docker image is in the .spk. This leads to a much bigger .spk file but on the other
 #                     hand you avoid all possible issues during docker pull and this package could be installed
 #                     offline. Harder to build but gives a more stable update process.
-# On Demand Package : (not recommended) Docker image is not in the .spk file an will be pulled during spk
+# On Demand Package : (not recommended) Docker image is not in the .spk file and will be pulled during spk
 #                     installation. The benefit here is a smaller package size and easy to build .spk - May
-#                     cause problems during installtaion when the docker image pull not working properly or
+#                     cause problems during installation when the docker image pull is not working properly or
 #                     connection breaks down. This may cause a half installed Package which should be cleaned
 #                     up and backup properly to be able to re-install.
 ################################################################################################################
