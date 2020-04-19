@@ -5,6 +5,45 @@ docker_no_autoclean=0
 spk_version=0055
 
 ########################################################################################################################
+# CHECK DEPENDENCIES!
+########################################################################################################################
+APT=$(which apt)    # ubunutu
+APT_PACKAGES="docker.io xz-utils git jq python curl"
+
+PACMAN=$(which pacman) # arch
+PACMAN_PACKAGES="docker xz git jq python curl"
+
+if [ -n "${APT}" ]; then
+  echo "${APT_PACKAGES}" | tr ' ' '\n' | while read item; do
+    if [ $(dpkg-query -W -f='${Status}' "${item}" 2>/dev/null | grep -c "ok installed") -eq 0 ]; then #apt -qq list docker.io
+      echo "${item} is not installed."
+      echo "executing: sudo apt install -y ${item}"
+      sudo apt install -y "${item}"
+      if [ "${item}" == "docker.io" ]; then
+        sudo usermod -aG docker "${USER}"
+        sudo systemctl enable docker
+
+      fi
+    fi
+  done
+fi
+
+if [ -n "${PACMAN}" ]; then
+  echo "${PACMAN_PACKAGES}" | tr ' ' '\n' | while read item; do
+    if [ -z "$(pacman -Qs "${item}")" ]; then
+      echo "${item} is not installed."
+      echo "executing: sudo pacman -S ${item}"
+      sudo pacman -S "${item}"
+      if [ "${item}" == "docker" ]; then
+        sudo usermod -aG docker "${USER}"
+        sudo systemctl enable docker
+        echo "you need to re-login to continue"
+      fi
+    fi
+  done
+fi
+
+########################################################################################################################
 # FUNCTIONS
 ########################################################################################################################
 in_array() {
@@ -91,35 +130,6 @@ get_latest_version_number_from_dockerhub() {
 }
 
 ########################################################################################################################
-# CHECK DEPENDENCIES!
-########################################################################################################################
-APT=$(which apt)    # ubunutu
-APT_PACKAGES="docker.io xz git jq python"
-
-PACMAN=$(which pacman) # arch
-PACMAN_PACKAGES="docker xz git jq python"
-
-if [ -n "${APT}" ]; then
-  echo "${APT_PACKAGES}" | tr ' ' '\n' | while read item; do
-    if [ $(dpkg-query -W -f='${Status}' "${item}" 2>/dev/null | grep -c "ok installed") -eq 0 ]; then
-      echo "${item} is not installed."
-      echo "executing: sudo apt install ${item}"
-      sudo apt -y "${item}"
-    fi
-  done
-fi
-
-if [ -n "${PACMAN}" ]; then
-  echo "${PACMAN_PACKAGES}" | tr ' ' '\n' | while read item; do
-    if [ -z "$(pacman -Qs "${item}")" ]; then
-      echo "${item} is not installed."
-      echo "executing: sudo pacman -S ${item}"
-      sudo pacman -S "${item}"
-    fi
-  done
-fi
-
-########################################################################################################################
 # DEFAULT PARAMETERS
 ########################################################################################################################
 default_gitlab_target_package_fqn="sameersbn/gitlab:12.7.6"
@@ -127,7 +137,7 @@ default_gitlab_target_package_download_size=859
 
 # let fetch latest tag from dockerhub and make it default
 latest_gitlab_target_package_version="$(get_latest_version_number_from_dockerhub "sameersbn/gitlab")"
-if [ -n "${latest_gitlab_target_package_version}" ]; then
+if [ "${latest_gitlab_target_package_version}" != "-1" ]; then
   gitlab_target_package_name=$(echo "${default_gitlab_target_package_fqn}" | cut -f1 -d:)
   default_gitlab_target_package_fqn="${gitlab_target_package_name}:${latest_gitlab_target_package_version}"
 fi
