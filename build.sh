@@ -1,19 +1,31 @@
 #!/bin/bash
-
 docker_no_autopull=0
 docker_no_autoclean=0
 spk_version=0055
 
+if [ "${USER}" == "root" ]; then
+  echo "NO! You can not run this script as ROOT!"
+  exit
+fi
+
 ########################################################################################################################
 # CHECK DEPENDENCIES!
 ########################################################################################################################
-APT=$(which apt)    # ubunutu
-APT_PACKAGES="docker.io xz-utils git jq python curl"
+# ubuntu
+APT_PACKAGES="xz-utils git jq python curl docker.io"
+APT_BINARY=""
+if [ -f "/usr/bin/apt" ]; then
+  APT_BINARY="/usr/bin/apt"
+fi
 
-PACMAN=$(which pacman) # arch
-PACMAN_PACKAGES="docker xz git jq python curl"
+# manjaro
+PACMAN_BINARY=""
+PACMAN_PACKAGES="xz git jq python curl docker"
+if [ -f "/usr/bin/pacman" ]; then
+  PACMAN_BINARY="/usr/bin/pacman"
+fi
 
-if [ -n "${APT}" ]; then
+if [ -n "${APT_BINARY}" ]; then
   echo "${APT_PACKAGES}" | tr ' ' '\n' | while read item; do
     if [ $(dpkg-query -W -f='${Status}' "${item}" 2>/dev/null | grep -c "ok installed") -eq 0 ]; then #apt -qq list docker.io
       echo "${item} is not installed."
@@ -22,22 +34,30 @@ if [ -n "${APT}" ]; then
       if [ "${item}" == "docker.io" ]; then
         sudo usermod -aG docker "${USER}"
         sudo systemctl enable docker
-
+        sudo systemctl start docker
+        echo "==================================================="
+        echo "    please continue after re-login or restart.     "
+        echo "==================================================="
+        kill $$
       fi
     fi
   done
 fi
 
-if [ -n "${PACMAN}" ]; then
+if [ -n "${PACMAN_BINARY}" ]; then
   echo "${PACMAN_PACKAGES}" | tr ' ' '\n' | while read item; do
     if [ -z "$(pacman -Qs "${item}")" ]; then
       echo "${item} is not installed."
       echo "executing: sudo pacman -S ${item}"
-      sudo pacman -S "${item}"
+      sudo pacman -S --noconfirm "${item}"
       if [ "${item}" == "docker" ]; then
         sudo usermod -aG docker "${USER}"
         sudo systemctl enable docker
-        echo "you need to re-login to continue"
+        sudo systemctl start docker
+        echo "==================================================="
+        echo "    please continue after re-login or reboot.      "
+        echo "==================================================="
+        kill $$
       fi
     fi
   done
