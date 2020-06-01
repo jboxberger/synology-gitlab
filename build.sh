@@ -162,7 +162,7 @@ if [ "${latest_gitlab_target_package_version}" != "-1" ]; then
   default_gitlab_target_package_fqn="${gitlab_target_package_name}:${latest_gitlab_target_package_version}"
 fi
 
-default_postgresql_target_package_fqn="sameersbn/postgresql:10"
+default_postgresql_target_package_fqn="sameersbn/postgresql:12-20200524"
 default_postgresql_target_package_download_size=76
 
 default_redis_target_package_fqn="redis:4.0.14"
