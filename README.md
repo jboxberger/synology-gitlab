@@ -24,6 +24,9 @@ You can check the architecture of your device [here](https://github.com/SynoComm
 or [here](https://www.synology.com/en-us/knowledgebase/DSM/tutorial/General/What_kind_of_CPU_does_my_NAS_have).
 
 # Backup
+**Warning:**
+GitLab does not back up any configuration files, SSL certificates, or system files. You are highly advised to [read about storing configuration files](https://docs.gitlab.com/ee/raketasks/backup_restore.html#storing-configuration-files).
+
 ```
 # backup files will be saved in gitlab/backups directory usually ( /volume1/docker/gitlab/gitlab/backups )
 # the backup contains the config files including !PASSWORDS! be shure to keep them in an safe place!
