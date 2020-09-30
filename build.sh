@@ -92,8 +92,7 @@ download_docker_image_interactive() {
   local image_name_escaped="$(echo "${image_name}" | tr '/' '-')"
 
   if [ ! -f "${target_dir}/${image_name_escaped}-${image_version}.tar.xz" ]; then
-    echo -n "docker image ${image_name}:${image_version} export not found. export? [Y/n]: "
-    read export
+    read -ep "docker image ${image_name}:${image_version} export not found. export? [Y/n]: " export
     if [ -z "${export}" ] || [ "${export}" != "n" ] ; then
       download_docker_image "${image_name}" "${image_version}" "${docker_dir}"
     fi
@@ -108,11 +107,16 @@ download_docker_image() {
   # shellcheck disable=SC2155
   local image_name_escaped=$(echo "${image_name}" | tr '/' '-')
   local pulled_image=0
+  local success=0
   if [ ! -f "${target_dir}/${image_name_escaped}-${image_version}.tar.xz" ]; then
 
     if [ -z "$(docker images -q ${image_name}:${image_version} 2> /dev/null)" ]; then
       echo "pull image ${image_name}:${image_version}"
-      docker pull "${image_name}:${image_version}"
+      docker pull "${image_name}:${image_version}" && success=1
+      if [ ${success} -ne 1 ]; then
+        echo "failed to pull image ${image_name}:${image_version}, build aborted!"
+        exit 1
+      fi
       pulled_image=1
     fi
 
@@ -152,8 +156,8 @@ get_latest_version_number_from_dockerhub() {
 ########################################################################################################################
 # DEFAULT PARAMETERS
 ########################################################################################################################
-default_gitlab_target_package_fqn="sameersbn/gitlab:12.7.6"
-default_gitlab_target_package_download_size=859
+default_gitlab_target_package_fqn="sameersbn/gitlab:13.3.4"
+default_gitlab_target_package_download_size=1280
 
 # let fetch latest tag from dockerhub and make it default
 latest_gitlab_target_package_version="$(get_latest_version_number_from_dockerhub "sameersbn/gitlab")"
@@ -162,10 +166,10 @@ if [ "${latest_gitlab_target_package_version}" != "-1" ]; then
   default_gitlab_target_package_fqn="${gitlab_target_package_name}:${latest_gitlab_target_package_version}"
 fi
 
-default_postgresql_target_package_fqn="sameersbn/postgresql:12-20200524"
-default_postgresql_target_package_download_size=76
+default_postgresql_target_package_fqn="sameersbn/postgresql:11-20200524"
+default_postgresql_target_package_download_size=100
 
-default_redis_target_package_fqn="redis:4.0.14"
+default_redis_target_package_fqn="redis:5.0.9"
 default_redis_target_package_download_size=29
 
 gitlab_mod_maintainer="Juri Boxberger"
@@ -213,27 +217,29 @@ done
 
 if [ -z "${gitlab_target_package_fqn}" ] || [ -z "${postgresql_target_package_fqn}" ] || [ -z "${redis_target_package_fqn}" ]; then
   echo "============================================================================================================"
-  echo " Please provide the full qualified docker container name from dockerhub.com"
+  echo " Please provide the full qualified docker container name from dockerhub.com or version number"
   echo "============================================================================================================"
   if [ -z "${gitlab_target_package_fqn}" ]; then
-    echo -n "GitLab [default ${default_gitlab_target_package_fqn}]: "
-    read gitlab_target_package_fqn
+    read -ep "GitLab [default ${default_gitlab_target_package_fqn}]: " -i "${latest_gitlab_target_package_version}" gitlab_target_package_fqn
     if [ -z "${gitlab_target_package_fqn}" ]; then
       gitlab_target_package_fqn=${default_gitlab_target_package_fqn}
+    else
+      # check if version number only and attach image name
+      if [ $(echo "${gitlab_target_package_fqn}" | sed 's/^[0-9\.-]*//' | wc -c) -eq 1 ]; then
+        gitlab_target_package_fqn="${gitlab_target_package_name}:${gitlab_target_package_fqn}"
+      fi
     fi
   fi
 
   if [ -z "${postgresql_target_package_fqn}" ]; then
-    echo -n "Postgres [default ${default_postgresql_target_package_fqn}]: "
-    read postgresql_target_package_fqn
+    read -ep "Postgres [default ${default_postgresql_target_package_fqn}]: " postgresql_target_package_fqn
     if [ -z "${postgresql_target_package_fqn}" ]; then
       postgresql_target_package_fqn=${default_postgresql_target_package_fqn}
     fi
   fi
 
   if [ -z "${redis_target_package_fqn}" ]; then
-    echo -n "Redis [default ${default_redis_target_package_fqn}]: "
-    read redis_target_package_fqn
+    read -ep "Redis [default ${default_redis_target_package_fqn}]: " redis_target_package_fqn
     if [ -z "${redis_target_package_fqn}" ]; then
       redis_target_package_fqn=${default_redis_target_package_fqn}
     fi
