@@ -268,7 +268,7 @@ redis_target_package_name_escaped=$(echo "${redis_target_package_name}" | tr '/'
 ########################################################################################################################
 # VARIABLES
 ########################################################################################################################
-base_package_url="https://usdl.synology.com/download/Package/spk/Docker-GitLab/11.11.8-0055/Docker-GitLab-x64-11.11.8-0055.spk"
+base_package_url="https://archive.synology.com/download/Package/spk/Docker-GitLab/11.11.8-0055/Docker-GitLab-x64-11.11.8-0055.spk"
 base_package_filename="${base_package_url##*/}"
 base_package_name="${base_package_filename%.*}"
 base_package_version="$( echo "${base_package_name}" | grep -P "([0-9]{1,2}[.][0-9]{1,2}[.]{0,1}[0-9]{0,2})" -o )"
