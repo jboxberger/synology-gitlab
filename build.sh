@@ -337,6 +337,7 @@ redis_config="${project_dir}/package/config/synology_gitlab_redis"
 #fix json to be able to work with jq
 sed -i -e "s/:__HTTP_PORT__,/:\"__HTTP_PORT__\",/g" "${project_dir}/package/config/synology_gitlab"
 sed -i -e "s/:__SSH_PORT__,/:\"__SSH_PORT__\",/g" "${project_dir}/package/config/synology_gitlab"
+sed -i -e "s/:\"pg_trgm\"/:\"pg_trgm,btree_gist\",/g" "${project_dir}/package/config/synology_gitlab_postgresql"
 
 gitlab_base_package_fqn=$(jq '.image' <"${synology_gitlab_config}" | tr -d '"')
 gitlab_base_package_name=$(echo "${gitlab_base_package_fqn}" | cut -f1 -d:)
