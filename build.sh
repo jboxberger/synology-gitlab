@@ -12,7 +12,7 @@ fi
 # CHECK DEPENDENCIES!
 ########################################################################################################################
 # ubuntu
-APT_PACKAGES="xz-utils git jq python curl docker.io"
+APT_PACKAGES="xz-utils git jq curl docker.io"
 APT_BINARY=""
 if [ -f "/usr/bin/apt" ]; then
   APT_BINARY="/usr/bin/apt"
@@ -20,7 +20,7 @@ fi
 
 # manjaro
 PACMAN_BINARY=""
-PACMAN_PACKAGES="xz git jq python curl docker"
+PACMAN_PACKAGES="xz git jq curl docker"
 if [ -f "/usr/bin/pacman" ]; then
   PACMAN_BINARY="/usr/bin/pacman"
 fi
