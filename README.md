@@ -3,6 +3,7 @@
 This is an upgraded and improved GitLab package which uses the stock Synology Package from [Synology Repo](https://www.synology.com/de-de/dsm/packages/Docker-GitLab) and can be installed over the original package.
 
 **Download Gitlab 12.9.2-0055 SPK**: [here](https://github.com/jboxberger/synology-gitlab/releases)
+**Download Gitlab [EXPERIMENTAL] 13.4.3-0055 SPK**: [here](https://github.com/jboxberger/synology-gitlab/releases)
 
 ## Hardware Requirements:
 - 1 CPU core ( 2 cores is recommended )
