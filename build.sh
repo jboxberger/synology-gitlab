@@ -156,8 +156,8 @@ get_latest_version_number_from_dockerhub() {
 ########################################################################################################################
 # DEFAULT PARAMETERS
 ########################################################################################################################
-default_gitlab_target_package_fqn="sameersbn/gitlab:13.6.2"
-default_gitlab_target_package_download_size=940
+default_gitlab_target_package_fqn="sameersbn/gitlab:13.9.3"
+default_gitlab_target_package_download_size=974
 
 # let fetch latest tag from dockerhub and make it default
 latest_gitlab_target_package_version="$(get_latest_version_number_from_dockerhub "sameersbn/gitlab")"
