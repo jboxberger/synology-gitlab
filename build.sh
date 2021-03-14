@@ -1,7 +1,7 @@
 #!/bin/bash
 docker_no_autopull=0
 docker_no_autoclean=0
-spk_version=0058
+spk_version=0068
 
 if [ "${USER}" == "root" ]; then
   echo "NO! You can not run this script as ROOT!"
@@ -156,8 +156,8 @@ get_latest_version_number_from_dockerhub() {
 ########################################################################################################################
 # DEFAULT PARAMETERS
 ########################################################################################################################
-default_gitlab_target_package_fqn="sameersbn/gitlab:12.10.6"
-default_gitlab_target_package_download_size=1280
+default_gitlab_target_package_fqn="sameersbn/gitlab:13.6.2"
+default_gitlab_target_package_download_size=940
 
 # let fetch latest tag from dockerhub and make it default
 latest_gitlab_target_package_version="$(get_latest_version_number_from_dockerhub "sameersbn/gitlab")"
@@ -274,7 +274,7 @@ redis_target_package_name_escaped=$(echo "${redis_target_package_name}" | tr '/'
 ########################################################################################################################
 # VARIABLES
 ########################################################################################################################
-base_package_url="https://global.download.synology.com/download/Package/spk/Docker-GitLab/12.10.6-0058/Docker-GitLab-x64-12.10.6-0058.spk"
+base_package_url="https://global.download.synology.com/download/Package/spk/Docker-GitLab/13.6.2-0068/Docker-GitLab-x64-13.6.2-0068.spk"
 base_package_filename="${base_package_url##*/}"
 base_package_name="${base_package_filename%.*}"
 base_package_version="$( echo "${base_package_name}" | grep -P "([0-9]{1,2}[.][0-9]{1,2}[.]{0,1}[0-9]{0,2})" -o )"
