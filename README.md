@@ -30,7 +30,7 @@ Database first, you can see the status in the GitLab container log (DSM docker b
 **Warning:**
 GitLab does not back up any configuration files, SSL certificates, or system files. You are highly advised to [read about storing configuration files](https://docs.gitlab.com/ee/raketasks/backup_restore.html#storing-configuration-files).
 
-```
+```bash
 # backup files will be saved in gitlab/backups directory usually ( /volume1/docker/gitlab/gitlab/backups )
 # the backup contains the config files including !PASSWORDS! be shure to keep them in an safe place!
 #
@@ -40,13 +40,13 @@ GitLab does not back up any configuration files, SSL certificates, or system fil
 
 sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bundle exec rake gitlab:backup:create RAILS_ENV=production CRON=1"
 
-# yo can make the backups readyble by your DSM user but use theis only when you knwo what you're doing and do not have any
+# you can make the backups readable by your DSM user but use this only when you know what you're doing and do not have any
 # security concerns
 sudo chmod g+rw /volume1/docker/gitlab/backups/*.tar
 ```
 
 # Restore
-```
+```bash
 # restoring only works within a version. restoring a backup from version 10.1.2 to 10.1.1 or from 10.1.1 to 10.1.2 will NOT work
 # only restoring from 10.1.2 to 10.1.2 will work.
 #
