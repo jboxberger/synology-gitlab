@@ -1,6 +1,6 @@
 ## synology-gitlab
 
-This is an upgraded and improved GitLab package which uses the stock Synology Package from [Synology Repo](https://www.synology.com/de-de/dsm/packages/Docker-GitLab) and can be installed over the original package.
+This is an upgraded and improved GitLab package which uses the stock Synology Package from [Synology Repo](https://www.synology.com/de-de/dsm/packages/Docker-GitLab) and can be installed over the [original package](https://archive.synology.com/download/Package/Docker-GitLab).
 
 **Download Gitlab 13.9.3-0068 SPK**: [here](https://github.com/jboxberger/synology-gitlab/releases)
 
