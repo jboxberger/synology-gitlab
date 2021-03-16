@@ -2,7 +2,7 @@
 
 This is an upgraded and improved GitLab package which uses the stock Synology Package from [Synology Repo](https://www.synology.com/de-de/dsm/packages/Docker-GitLab) and can be installed over the original package.
 
-**Download Gitlab 12.9.2-0055 SPK**: [here](https://github.com/jboxberger/synology-gitlab/releases)
+**Download Gitlab 13.9.3-0068 SPK**: [here](https://github.com/jboxberger/synology-gitlab/releases)
 
 ## Hardware Requirements:
 - 1 CPU core ( 2 cores is recommended )
@@ -58,7 +58,7 @@ sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bund
 ```
 
 # Build instructions
-```
+```bash
 ################################################################################################################
 # Make shure docker is already installed and runnig
 # All in One Package: The docker image is in the .spk. This leads to a much bigger .spk file but on the other
