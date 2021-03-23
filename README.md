@@ -83,3 +83,12 @@ sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bund
 
 # you will find the new .spk in the folder build/<version>/
 ```
+
+## Environment variables
+
+The complete list of available environment variables are available on [here](https://github.com/sameersbn/docker-gitlab/blob/master/README.md#available-configuration-parameters). You can apply by following steps:
+1. Stop the GitLab in Package Center
+2. Open the Docker in Main Menu
+3. In the left tab <kbd>Container</kbd>, right click the `synology_gitlab` and press <kbd>Edit</kbd>
+4. In the top tab <kbd>Environment</kbd>, add the proper [environment variables](https://github.com/sameersbn/docker-gitlab/blob/master/README.md#available-configuration-parameters)
+5. Run the GitLab in Package Center
