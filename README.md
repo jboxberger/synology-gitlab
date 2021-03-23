@@ -19,14 +19,14 @@ Looking for a more lightweight GIT Package with a GitLab like UI, then check my 
 You can check the architecture of your device [here](https://github.com/SynoCommunity/spksrc/wiki/Architecture-per-Synology-model)
 or [here](https://www.synology.com/en-us/knowledgebase/DSM/tutorial/General/What_kind_of_CPU_does_my_NAS_have).
 
-# Updates
+## Updates
 **Always backup data before update! _Please be patient during the Update process_**.
 The first docker container boot up - after installation/update - takes some minutes because GitLab needs to migrate the
 Database first, you can see the status in the GitLab container log (DSM docker backend). __**The Update is complete when the CPU begins to idle.**__
 
 ![alt text](update-graph/update-graph.png "Update Graph")
 
-# Backup
+## Backup
 **Warning:**
 GitLab does not back up any configuration files, SSL certificates, or system files. You are highly advised to [read about storing configuration files](https://docs.gitlab.com/ee/raketasks/backup_restore.html#storing-configuration-files).
 
@@ -45,7 +45,7 @@ sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bund
 sudo chmod g+rw /volume1/docker/gitlab/backups/*.tar
 ```
 
-# Restore
+## Restore
 ```bash
 # restoring only works within a version. restoring a backup from version 10.1.2 to 10.1.1 or from 10.1.1 to 10.1.2 will NOT work
 # only restoring from 10.1.2 to 10.1.2 will work.
@@ -57,7 +57,7 @@ sudo chmod g+rw /volume1/docker/gitlab/backups/*.tar
 sudo /usr/local/bin/docker exec -it synology_gitlab bash -c "sudo -u git -H bundle exec rake gitlab:backup:restore RAILS_ENV=production BACKUP=1544961414_2018_12_16_9.4.4"
 ```
 
-# Build instructions
+## Build instructions
 ```bash
 ################################################################################################################
 # Make shure docker is already installed and runnig
