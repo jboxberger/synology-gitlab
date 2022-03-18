@@ -1,3 +1,12 @@
+
+
+# DISCONTINUED!!!
+This Package will not be updated anymore. Because of the DSM non priveleged approach this package can not work on DSM 7 as is. Also newer GitLab Versions fail to migrate with the used gitlab image by synology. To stop this nonsens i've build a new GitLab package without any relation to the original synology package and based on the gitlab/gitlab-ce (omnibus) docker image. The new package does not mess around with your gitlab as th original synology package do and gives you ful lcontrol over your docker gitlab container.
+
+Please checkout the new [synology-gitlab-ce](https://github.com/jboxberger/synology-gitlab-ce) package. DSM6 and DMS7 compatible.
+
+<hr>
+
 ## synology-gitlab
 
 This is an upgraded and improved GitLab package which uses the stock Synology Package from [Synology Repo](https://www.synology.com/de-de/dsm/packages/Docker-GitLab) and can be installed over the [original package](https://archive.synology.com/download/Package/Docker-GitLab).
