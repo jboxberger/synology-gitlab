@@ -1,4 +1,5 @@
 
+# >>> New Package: [synology-gitlab-ce](https://github.com/jboxberger/synology-gitlab-ce) package. <<<
 
 # DISCONTINUED!!!
 
