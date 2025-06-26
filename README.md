@@ -1,7 +1,7 @@
 
 # >>> New Package: [synology-gitlab-ce](https://github.com/jboxberger/synology-gitlab-ce) package. <<<
 
-# DISCONTINUED!!!
+## DISCONTINUED!!!
 
 New Package: [synology-gitlab-ce](https://github.com/jboxberger/synology-gitlab-ce) package. DSM6 and DMS7 compatible.
 
